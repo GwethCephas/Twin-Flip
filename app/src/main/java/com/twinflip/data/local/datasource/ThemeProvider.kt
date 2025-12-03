@@ -1,7 +1,7 @@
-package com.twinflip.data.local.themes
+package com.twinflip.data.local.datasource
 
-object ThemeProvider {
-    val allThemes = listOf(
+class ThemeProvider {
+    fun getThemes() = listOf(
         Themes.emojis,
         Themes.animals,
         Themes.space,
