@@ -20,9 +20,9 @@ val appModule = module {
 
     single<CardRepository> { CardRepositoryImpl(get()) }
 
-    factory { ThemesUseCase(get()) }
+    single { ThemesUseCase(get()) }
 
-    factory { CardsUseCase(get()) }
+    single { CardsUseCase(get()) }
 
     viewModel { ThemeViewModel(get()) }
 

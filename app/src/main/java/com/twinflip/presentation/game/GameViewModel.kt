@@ -29,7 +29,6 @@ class GameViewModel(
                         card = card
                     )
                 }
-                .take(16)
 
             _gameUiState.update {
                 it.copy(
