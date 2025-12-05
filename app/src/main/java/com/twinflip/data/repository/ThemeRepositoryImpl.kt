@@ -13,9 +13,4 @@ class ThemeRepositoryImpl(
         return themeProvider.getThemes().map { it.toDomainTheme() }
     }
 
-    override fun getThemeByName(name: String): Theme? {
-        return themeProvider.getThemes()
-            .find { it.themeName == name }
-            ?.toDomainTheme()
-    }
 }

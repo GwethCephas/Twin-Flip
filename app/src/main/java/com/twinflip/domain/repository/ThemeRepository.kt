@@ -5,6 +5,4 @@ import com.twinflip.domain.model.Theme
 interface ThemeRepository {
     fun getThemes(): List<Theme>
 
-    fun getThemeByName(name: String): Theme?
-
 }

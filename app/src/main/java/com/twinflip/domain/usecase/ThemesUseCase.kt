@@ -10,8 +10,5 @@ class ThemesUseCase(
       return  themeRepository.getThemes()
     }
 
-    operator fun invoke(themeId: String) : Theme? {
-        return themeRepository.getThemeByName(themeId)
-    }
 
 }

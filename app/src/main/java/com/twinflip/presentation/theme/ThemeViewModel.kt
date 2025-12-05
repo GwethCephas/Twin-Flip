@@ -35,7 +35,4 @@ class ThemeViewModel(
         }
     }
 
-    fun getThemeByName(themeName: String): Theme?  {
-        return themesUseCase.invoke(themeName)
-    }
 }

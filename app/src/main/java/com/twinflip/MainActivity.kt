@@ -6,6 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.twinflip.presentation.game.GameScreen
 import com.twinflip.presentation.game.GameViewModel
+import com.twinflip.presentation.navigation.NavGraph
+import com.twinflip.presentation.theme.ThemeScreen
+import com.twinflip.presentation.theme.ThemeViewModel
 import com.twinflip.ui.theme.TwinFlipTheme
 import org.koin.androidx.compose.koinViewModel
 
@@ -16,7 +19,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             TwinFlipTheme {
                 val gameViewModel = koinViewModel<GameViewModel>()
-                GameScreen(viewModel = gameViewModel)
+                val themeViewModel = koinViewModel<ThemeViewModel>()
+
+                NavGraph(
+                    themeViewModel = themeViewModel,
+                    gameViewModel = gameViewModel
+                )
             }
         }
     }
