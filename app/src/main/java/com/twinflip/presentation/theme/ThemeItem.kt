@@ -16,16 +16,21 @@ import com.twinflip.domain.model.Theme
 
 @Composable
 fun ThemeItem(
+    modifier: Modifier = Modifier,
     theme: Theme,
     onThemeClick: () -> Unit
 ) {
     Column(
-        modifier = Modifier.padding(10.dp).clickable { onThemeClick() },
+        modifier = modifier
+            .padding(10.dp)
+            .clickable { onThemeClick() },
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
         Image(
-            painter = painterResource(id= theme.images.first().imageRes),
+            modifier = Modifier
+                .padding(8.dp),
+            painter = painterResource(id = theme.images.first().imageRes),
             contentDescription = theme.themeName
         )
         Text(

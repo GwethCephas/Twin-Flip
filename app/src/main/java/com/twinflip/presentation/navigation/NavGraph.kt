@@ -44,7 +44,10 @@ fun NavGraph(
 
             GameScreen(
                 viewModel = gameViewModel,
-                themeName = themeName
+                themeName = themeName,
+                onNavigateBack = {
+                    navController.popBackStack()
+                }
             )
 
         }

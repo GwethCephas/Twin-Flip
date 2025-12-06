@@ -2,10 +2,10 @@ package com.twinflip.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val primaryLight = Color(0xFF515B92)
+val primaryLight = Color(0xFF2F7DDE)
 val onPrimaryLight = Color(0xFFFFFFFF)
 val primaryContainerLight = Color(0xFFDEE0FF)
-val onPrimaryContainerLight = Color(0xFF394379)
+val onPrimaryContainerLight = Color(0xFF53B9F5)
 val secondaryLight = Color(0xFF66558E)
 val onSecondaryLight = Color(0xFFFFFFFF)
 val secondaryContainerLight = Color(0xFFEADDFF)
@@ -34,7 +34,7 @@ val surfaceDimLight = Color(0xFFDBD9E0)
 val surfaceBrightLight = Color(0xFFFBF8FF)
 val surfaceContainerLowestLight = Color(0xFFFFFFFF)
 val surfaceContainerLowLight = Color(0xFFF5F2FA)
-val surfaceContainerLight = Color(0xFFEFEDF4)
+val surfaceContainerLight = Color(0xFFFCD141)
 val surfaceContainerHighLight = Color(0xFFE9E7EF)
 val surfaceContainerHighestLight = Color(0xFFE3E1E9)
 

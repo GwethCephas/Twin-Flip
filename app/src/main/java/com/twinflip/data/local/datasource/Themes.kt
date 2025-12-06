@@ -506,6 +506,10 @@ object Themes {
             CardEntity(
                 imageRes = R.drawable.nature_tree,
                 name = "tree"
+            ),
+            CardEntity(
+                imageRes = R.drawable.nature_woods_forest,
+                name = "woods"
             )
         )
     )
