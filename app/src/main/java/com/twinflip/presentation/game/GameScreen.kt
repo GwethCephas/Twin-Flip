@@ -39,13 +39,20 @@ fun GameScreen(
     modifier: Modifier = Modifier,
     viewModel: GameViewModel,
     themeName: String,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    navigateToGameCompleteScreen: () -> Unit
 ) {
     val state by viewModel.gameUiState.collectAsState()
     val cardSize = (LocalConfiguration.current.screenWidthDp - 20) / 4
 
     LaunchedEffect(Unit) {
         viewModel.loadGames(themeName)
+    }
+
+    LaunchedEffect(state.gameCompleted) {
+        if (state.gameCompleted) {
+            navigateToGameCompleteScreen()
+        }
     }
 
     Scaffold(
@@ -63,7 +70,7 @@ fun GameScreen(
             modifier = modifier
                 .fillMaxSize()
                 .padding(it)
-                .background(MaterialTheme.colorScheme.primary),
+                .background(MaterialTheme.colorScheme.onPrimaryContainer),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
@@ -95,7 +102,7 @@ fun GameScreen(
                 modifier = Modifier
                     .wrapContentSize()
                     .clip(RoundedCornerShape(10.dp))
-                    .background(color = MaterialTheme.colorScheme.surfaceContainer),
+                    .background(color = MaterialTheme.colorScheme.primary),
                 contentAlignment = Alignment.Center
             ) {
                 Text(

@@ -32,7 +32,7 @@ fun CustomTopBar(
     CenterAlignedTopAppBar(
         modifier = modifier,
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primary
+            containerColor = MaterialTheme.colorScheme.onPrimaryContainer
         ),
         title = {
             Text(

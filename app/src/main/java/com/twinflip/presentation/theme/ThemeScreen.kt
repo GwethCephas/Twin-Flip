@@ -1,5 +1,6 @@
 package com.twinflip.presentation.theme
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,12 +29,14 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import com.twinflip.presentation.common.CustomTopBar
 
+@SuppressLint("ConfigurationScreenWidthHeight")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ThemeScreen(
     modifier: Modifier = Modifier,
     themeViewModel: ThemeViewModel,
-    onNavigateToGame: (String) -> Unit
+    onNavigateToGame: (String) -> Unit,
+    onNavigateToHome: () -> Unit
 ) {
     val state by themeViewModel.themeUiState.collectAsState()
 
@@ -48,14 +51,16 @@ fun ThemeScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.primary)
+            .background(MaterialTheme.colorScheme.onPrimaryContainer)
     ) {
         CustomTopBar(
             modifier = modifier
                 .fillMaxWidth()
                 .windowInsetsPadding(WindowInsets.statusBars),
             title = "Themes",
-            onNavigateBack = {}
+            onNavigateBack = {
+                onNavigateToHome()
+            }
         )
         Spacer(modifier = modifier.height(outerPadding))
 

@@ -6,8 +6,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.twinflip.presentation.game.GameCompleteScreen
 import com.twinflip.presentation.game.GameScreen
 import com.twinflip.presentation.game.GameViewModel
+import com.twinflip.presentation.home.HomeScreen
 import com.twinflip.presentation.theme.ThemeScreen
 import com.twinflip.presentation.theme.ThemeViewModel
 
@@ -20,8 +22,16 @@ fun NavGraph(
 
     NavHost(
         navController = navController,
-        startDestination = NavRoutes.Themes.route
+        startDestination = NavRoutes.Home.route
     ) {
+        composable(NavRoutes.Home.route) {
+            HomeScreen(
+                onNavigateToThemeScreen = {
+                    navController.navigate(NavRoutes.Themes.route)
+                }
+            )
+        }
+
         composable(NavRoutes.Themes.route) {
             ThemeScreen(
                 themeViewModel = themeViewModel,
@@ -29,6 +39,9 @@ fun NavGraph(
                     navController.navigate(NavRoutes.Game.route + "/$themeName") {
                         launchSingleTop = true
                     }
+                },
+                onNavigateToHome = {
+                    navController.navigate(NavRoutes.Home.route)
                 }
             )
         }
@@ -47,7 +60,20 @@ fun NavGraph(
                 themeName = themeName,
                 onNavigateBack = {
                     navController.popBackStack()
+                },
+                navigateToGameCompleteScreen = {
+                    navController.navigate(NavRoutes.GameComplete.route)
                 }
+            )
+
+        }
+        composable(
+            route = NavRoutes.GameComplete.route
+        ) {
+            GameCompleteScreen(
+                time = "00.46",
+                moves = 20,
+                score = 800
             )
 
         }
