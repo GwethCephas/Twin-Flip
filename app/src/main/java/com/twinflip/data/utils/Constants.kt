@@ -5,7 +5,7 @@ object Constants {
     const val EMOJIS = "emojis"
     const val ANIMALS = "animals"
     const val SPACE = "space"
-    const val UNDERWATER = "underwater"
+    const val UNDERWATER = "water"
     const val FOODS_SNACKS = "foods"
     const val VEHICLES = "vehicles"
     const val FANTASY = "fantasy"

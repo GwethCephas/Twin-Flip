@@ -6,7 +6,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.twinflip.presentation.game.GameCompleteScreen
 import com.twinflip.presentation.game.GameScreen
 import com.twinflip.presentation.game.GameViewModel
 import com.twinflip.presentation.home.HomeScreen
@@ -60,20 +59,7 @@ fun NavGraph(
                 themeName = themeName,
                 onNavigateBack = {
                     navController.popBackStack()
-                },
-                navigateToGameCompleteScreen = {
-                    navController.navigate(NavRoutes.GameComplete.route)
                 }
-            )
-
-        }
-        composable(
-            route = NavRoutes.GameComplete.route
-        ) {
-            GameCompleteScreen(
-                time = "00.46",
-                moves = 20,
-                score = 800
             )
 
         }

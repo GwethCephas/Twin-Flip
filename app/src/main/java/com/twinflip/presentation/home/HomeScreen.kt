@@ -1,5 +1,6 @@
 package com.twinflip.presentation.home
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,6 +9,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import com.twinflip.R
 import com.twinflip.presentation.common.CustomButton
 
 @Composable
@@ -23,6 +27,10 @@ fun HomeScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Image(
+            painter = painterResource(id = R.drawable.twin_flip_image),
+            contentDescription = "Twin Flip Logo"
+        )
         CustomButton(
             text = "Single Player",
             color = MaterialTheme.colorScheme.primary,
@@ -34,7 +42,6 @@ fun HomeScreen(
             text = "Two Players",
             color = MaterialTheme.colorScheme.primary,
             onClick = {
-                onNavigateToThemeScreen()
             }
         )
 
@@ -49,3 +56,29 @@ fun HomeScreen(
 
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun HomeScreenPreview() {
+    HomeScreen(
+        onNavigateToThemeScreen = {}
+    )
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

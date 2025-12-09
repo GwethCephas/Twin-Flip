@@ -3,16 +3,21 @@ package com.twinflip.presentation.game
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.twinflip.domain.usecase.CardsUseCase
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class GameViewModel(
     private val cardsUseCase: CardsUseCase
 ) : ViewModel() {
 
+    private var timerJob: Job? = null
+
+    private var seconds = 0
 
     private var _gameUiState = MutableStateFlow(GameUiState())
     val gameUiState = _gameUiState.asStateFlow()
@@ -38,7 +43,8 @@ class GameViewModel(
                     gameCompleted = false,
                     isComparing = false,
                     firstSelected = null,
-                    secondSelected = null
+                    secondSelected = null,
+                    time = "00:00"
                 )
             }
         }
@@ -80,9 +86,12 @@ class GameViewModel(
             val first = state.firstSelected!!
             val second = state.secondSelected!!
 
+            startTimer()
+
             if (first.card.name == second.card.name) {
                 markAsMatched(first.id)
                 markAsMatched(second.id)
+
 
                 val newMatched = state.matchedPairs + 1
 
@@ -92,6 +101,18 @@ class GameViewModel(
                         gameCompleted = newMatched == (state.cards.size / 2)
                     )
                 }
+                if (state.matchedPairs == (state.cards.size / 2)) {
+                    delay(1000)
+                    stopTimer()
+                    delay(1000)
+                    _gameUiState.update {
+                        it.copy(
+                            time = formatTime(0)
+                        )
+                    }
+                }
+
+
             } else {
                 flipCardBack(first.id)
                 flipCardBack(second.id)
@@ -139,5 +160,34 @@ class GameViewModel(
         }
     }
 
+    fun startTimer() {
+        timerJob?.cancel()
+
+        timerJob = viewModelScope.launch {
+            while (isActive) {
+                delay(1000)
+                seconds++
+                _gameUiState.update {
+                    it.copy(
+                        time = formatTime(seconds)
+                    )
+                }
+            }
+        }
+    }
+
+    fun stopTimer() {
+        timerJob?.cancel()
+        seconds = 0
+
+        timerJob = null
+    }
+
+    private fun formatTime(totalSeconds: Int): String {
+        val minutes = totalSeconds / 60
+        val seconds = totalSeconds % 60
+        return String.format("%02d:%02d", minutes, seconds)
+
+    }
 
 }
