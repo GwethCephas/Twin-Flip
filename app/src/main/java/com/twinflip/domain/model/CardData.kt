@@ -1,6 +1,6 @@
 package com.twinflip.domain.model
 
 data class CardData(
-    val imageRes: Int,
+    val imagePath: String,
     val name: String
 )

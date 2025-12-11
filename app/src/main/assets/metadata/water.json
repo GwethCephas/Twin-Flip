@@ -1,0 +1,15 @@
+{
+  "themeName": "water",
+  "images": [
+    {"name": "crab", "path": "images/water/crab.svg"},
+    {"name": "fish", "path": "images/water/fish.svg"},
+    {"name": "shark", "path": "images/water/shark.svg"},
+    {"name": "whale", "path": "images/water/whale.svg"},
+    {"name": "turtle", "path": "images/water/turtle.svg"},
+    {"name": "walrus", "path": "images/water/walrus.svg"},
+    {"name": "dolphin", "path": "images/water/dolphin.svg"},
+    {"name": "octopus", "path": "images/water/octopus.svg"},
+    {"name": "starfish", "path": "images/water/starfish.svg"},
+    {"name": "submarine", "path": "images/water/submarine.svg"}
+  ]
+}

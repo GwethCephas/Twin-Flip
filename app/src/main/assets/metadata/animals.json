@@ -1,0 +1,15 @@
+{
+  "themeName": "animals",
+  "images": [
+    {"name": "cat", "path": "images/animals/cat.svg"},
+    {"name": "dog", "path": "images/animals/dog.svg"},
+    {"name": "fox", "path": "images/animals/fox.svg"},
+    {"name": "koala", "path": "images/animals/koala.svg"},
+    {"name": "lion", "path": "images/animals/lion.svg"},
+    {"name": "monkey", "path": "images/animals/monkey.svg"},
+    {"name": "panda", "path": "images/animals/panda.svg"},
+    {"name": "pig", "path": "images/animals/pig.svg"},
+    {"name": "tiger", "path": "images/animals/tiger.svg"},
+    {"name": "frog", "path": "images/animals/frog.svg"}
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "themeName": "fantasy",
+  "images": [
+    {"name": "alien", "path": "images/fantasy/alien.svg"},
+    {"name": "crown", "path": "images/fantasy/crown.svg"},
+    {"name": "sword", "path": "images/fantasy/sword.svg"},
+    {"name": "dragon", "path": "images/fantasy/dragon.svg"},
+    {"name": "shield", "path": "images/fantasy/shield.svg"},
+    {"name": "magic-wand", "path": "images/fantasy/magic-wand.svg"},
+    {"name": "santa-claus", "path": "images/fantasy/santa-claus.svg"},
+    {"name": "crystal-ball", "path": "images/fantasy/crystal-ball.svg"},
+    {"name": "hat-and-magic", "path": "images/fantasy/hat-and-magic.svg"},
+    {"name": "potion-bottle", "path": "images/fantasy/potion-bottle.svg"}
+  ]
+}

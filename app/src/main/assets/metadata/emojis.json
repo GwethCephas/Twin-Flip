@@ -1,0 +1,15 @@
+{
+  "themeName": "emojis",
+  "images": [
+    {"name": "angry", "path": "images/emojis/angry.svg"},
+    {"name": "blue", "path": "images/emojis/blue.svg"},
+    {"name": "cool", "path": "images/emojis/cool.svg"},
+    {"name": "crying", "path": "images/emojis/crying.svg"},
+    {"name": "demon", "path": "images/emojis/demon.svg"},
+    {"name": "happy", "path": "images/emojis/happy.svg"},
+    {"name": "laughing-emoji", "path": "images/emojis/laughing-emoji.svg"},
+    {"name": "pink", "path": "images/emojis/pink.svg"},
+    {"name": "sleeping", "path": "images/emojis/sleeping.svg"},
+    {"name": "winking", "path": "images/emojis/winking.svg"}
+  ]
+}

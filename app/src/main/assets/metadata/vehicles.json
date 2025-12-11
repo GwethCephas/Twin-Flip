@@ -1,0 +1,15 @@
+{
+  "themeName": "vehicle",
+  "images": [
+    {"name": "bus", "path": "images/vehicle/bus.svg"},
+    {"name": "car", "path": "images/vehicle/car.svg"},
+    {"name": "boat", "path": "images/vehicle/boat.svg"},
+    {"name": "train", "path": "images/vehicle/train.svg"},
+    {"name": "airplane", "path": "images/vehicle/airplane.svg"},
+    {"name": "ambulance", "path": "images/vehicle/ambulance.svg"},
+    {"name": "fire-truck", "path": "images/vehicle/fire-truck.svg"},
+    {"name": "helicopter", "path": "images/vehicle/helicopter.svg"},
+    {"name": "motorcycle", "path": "images/vehicle/motorcycle.svg"},
+    {"name": "police-car", "path": "images/vehicle/police-car.svg"}
+  ]
+}

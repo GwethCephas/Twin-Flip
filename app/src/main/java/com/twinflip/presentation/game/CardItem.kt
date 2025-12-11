@@ -1,8 +1,8 @@
 package com.twinflip.presentation.game
 
+import android.util.Log
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -17,10 +17,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-
+import coil.ImageLoader
+import coil.compose.AsyncImage
+import coil.decode.SvgDecoder
+import coil.request.ImageRequest
 
 @Composable
 fun CardItem(
@@ -29,6 +32,8 @@ fun CardItem(
     onCardClick: () -> Unit,
     cardSize: Dp
 ) {
+    val context = LocalContext.current
+
     val rotation = animateFloatAsState(
         targetValue = if (gameCard.isFlipped) 180f else 0f,
         animationSpec = tween(400),
@@ -58,6 +63,14 @@ fun CardItem(
                     .background(MaterialTheme.colorScheme.surfaceVariant),
             )
         } else {
+
+            val imageLoader = ImageLoader.Builder(context)
+                .components {
+                    add(SvgDecoder.Factory())
+                }
+                .build()
+
+
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -67,13 +80,19 @@ fun CardItem(
                     },
                 contentAlignment = Alignment.Center
             ) {
-                Image(
+                AsyncImage(
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(10.dp),
-                    painter = painterResource(id = gameCard.card.imageRes),
+                    model = ImageRequest.Builder(context)
+                        .data("file:///android_asset/${gameCard.card.imagePath}")
+                        .build(),
+                    imageLoader = imageLoader,
                     contentDescription = gameCard.card.name
+
                 )
+
+                Log.d("CardItem", "Loading asset: ${gameCard.card.imagePath}")
             }
         }
     }

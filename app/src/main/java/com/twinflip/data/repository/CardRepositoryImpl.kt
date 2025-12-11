@@ -1,5 +1,6 @@
 package com.twinflip.data.repository
 
+import android.util.Log
 import com.twinflip.data.local.datasource.ThemeProvider
 import com.twinflip.data.local.mapper.toDomainTheme
 import com.twinflip.domain.model.CardData
@@ -9,12 +10,24 @@ class CardRepositoryImpl(
     private val themeProvider: ThemeProvider
 ) : CardRepository {
     override fun getCardsForTheme(theme: String): List<CardData> {
-        return themeProvider.getThemes()
-            .find { it.themeName.equals(theme, ignoreCase = true) }
-            ?.toDomainTheme()?.images ?: emptyList()
+      return try {
+          themeProvider.getThemes()
+              .find { it.themeName.equals(theme, ignoreCase = true) }
+              ?.toDomainTheme()?.images ?: emptyList()
+
+      } catch (e: Exception) {
+          Log.e("CardRepositoryImpl", "Error getting cards for theme: $theme", e)
+          emptyList()
+      }
+
     }
 
     override fun getRandomCards(): List<CardData> {
-        return themeProvider.getThemes().random().toDomainTheme().images
+        return try {
+            themeProvider.getThemes().random().toDomainTheme().images
+        } catch (e: Exception) {
+            Log.e("CardRepositoryImpl", "Error getting random cards", e)
+            emptyList()
+        }
     }
 }

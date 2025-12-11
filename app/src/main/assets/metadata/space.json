@@ -1,0 +1,15 @@
+{
+  "themeName": "space",
+  "images": [
+    {"name": "ufo", "path": "images/space/ufo.svg"},
+    {"name": "moon", "path": "images/space/moon.svg"},
+    {"name": "star", "path": "images/space/star.svg"},
+    {"name": "comet", "path": "images/space/comet.svg"},
+    {"name": "galaxy", "path": "images/space/galaxy.svg"},
+    {"name": "saturn", "path": "images/space/saturn.svg"},
+    {"name": "sun-face", "path": "images/space/sun-face.svg"},
+    {"name": "astronaut", "path": "images/space/astronaut.svg"},
+    {"name": "telescope", "path": "images/space/telescope.svg"},
+    {"name": "rocket", "path": "images/space/rocket-svgrepo-com.svg"}
+  ]
+}

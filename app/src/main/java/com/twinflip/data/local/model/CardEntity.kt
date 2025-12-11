@@ -1,6 +1,8 @@
 package com.twinflip.data.local.model
 
+import com.google.gson.annotations.SerializedName
+
 data class CardEntity(
-    val imageRes: Int,
+    @SerializedName("path") val imagePath: String,
     val name: String
 )

@@ -87,7 +87,7 @@ fun GameScreen(
         } else {
             CenterAlignedTopAppBar(
                 modifier = modifier.windowInsetsPadding(WindowInsets.statusBars),
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.onPrimaryContainer
                 ),
                 title = {

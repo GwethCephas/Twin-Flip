@@ -1,0 +1,15 @@
+{
+  "themeName": "music",
+  "images": [
+    {"name": "drum", "path": "images/music/drum.svg"},
+    {"name": "piano", "path": "images/music/piano.svg"},
+    {"name": "guitar", "path": "images/music/guitar.svg"},
+    {"name": "violin", "path": "images/music/violin.svg"},
+    {"name": "speaker", "path": "images/music/speaker.svg"},
+    {"name": "saxophone", "path": "images/music/saxophone.svg"},
+    {"name": "headphones", "path": "images/music/headphones.svg"},
+    {"name": "microphone", "path": "images/music/microphone.svg"},
+    {"name": "music-notes", "path": "images/music/music-notes.svg"},
+    {"name": "music-player", "path": "images/music/music-player.svg"}
+  ]
+}

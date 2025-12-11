@@ -28,7 +28,7 @@ fun HomeScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = R.drawable.twin_flip_image),
+            painter = painterResource(id = R.drawable.twin_flip_logo),
             contentDescription = "Twin Flip Logo"
         )
         CustomButton(

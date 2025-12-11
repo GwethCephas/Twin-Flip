@@ -1,0 +1,15 @@
+{
+  "themeName": "sports",
+  "images": [
+    {"name": "rugby", "path": "images/sports/rugby.svg"},
+    {"name": "trophy", "path": "images/sports/trophy.svg"},
+    {"name": "archery", "path": "images/sports/archery.svg"},
+    {"name": "cricket", "path": "images/sports/cricket.svg"},
+    {"name": "whistle", "path": "images/sports/whistle.svg"},
+    {"name": "football", "path": "images/sports/football.svg"},
+    {"name": "basketball", "path": "images/sports/basketball.svg"},
+    {"name": "volleyball", "path": "images/sports/volleyball.svg"},
+    {"name": "tennis-ball", "path": "images/sports/tennis-ball.svg"},
+    {"name": "boxing-glove", "path": "images/sports/boxing-glove.svg"}
+  ]
+}

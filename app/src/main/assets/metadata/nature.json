@@ -1,0 +1,15 @@
+{
+  "themeName": "nature",
+  "images": [
+    {"name": "sun", "path": "images/nature/sun.svg"},
+    {"name": "leaf", "path": "images/nature/leaf.svg"},
+    {"name": "tree", "path": "images/nature/tree.svg"},
+    {"name": "cloud", "path": "images/nature/cloud.svg"},
+    {"name": "river", "path": "images/nature/river.svg"},
+    {"name": "flower", "path": "images/nature/flower.svg"},
+    {"name": "mountain", "path": "images/nature/mountain.svg"},
+    {"name": "mushroom", "path": "images/nature/mushroom.svg"},
+    {"name": "butterfly", "path": "images/nature/butterfly.svg"},
+    {"name": "woods-forest", "path": "images/nature/woods-forest.svg"}
+  ]
+}

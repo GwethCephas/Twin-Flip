@@ -1,0 +1,15 @@
+{
+  "themeName": "fruits",
+  "images": [
+    {"name": "kiwi", "path": "images/fruits/kiwi.svg"},
+    {"name": "mango", "path": "images/fruits/mango.svg"},
+    {"name": "banana", "path": "images/fruits/banana.svg"},
+    {"name": "cherry", "path": "images/fruits/cherry.svg"},
+    {"name": "grapes", "path": "images/fruits/grapes.svg"},
+    {"name": "orange", "path": "images/fruits/orange.svg"},
+    {"name": "pineapple", "path": "images/fruits/pineapple.svg"},
+    {"name": "strawberry", "path": "images/fruits/strawberry.svg"},
+    {"name": "watermelon", "path": "images/fruits/watermelon.svg"},
+    {"name": "apple", "path": "images/fruits/apple-svgrepo-com.svg"}
+  ]
+}

@@ -67,4 +67,12 @@ dependencies {
 
     // Navigation
     implementation(libs.androidx.navigation.compose)
+
+    //google gson
+    implementation(libs.gson)
+
+    // coil
+    implementation(libs.coil)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.svg)
 }

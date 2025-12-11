@@ -7,7 +7,7 @@ import com.twinflip.domain.model.Theme
 
 fun CardEntity.toDomainCard(): CardData {
     return CardData(
-        imageRes = this.imageRes,
+        imagePath = this.imagePath,
         name = this.name
     )
 }

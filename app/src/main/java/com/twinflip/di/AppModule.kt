@@ -9,12 +9,13 @@ import com.twinflip.domain.usecase.CardsUseCase
 import com.twinflip.domain.usecase.ThemesUseCase
 import com.twinflip.presentation.game.GameViewModel
 import com.twinflip.presentation.theme.ThemeViewModel
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
 
-    single { ThemeProvider() }
+    single { ThemeProvider(androidContext()) }
 
     single<ThemeRepository> { ThemeRepositoryImpl(get()) }
 
