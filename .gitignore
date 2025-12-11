@@ -13,5 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
-/app/kotzilla.json
-/app/src/main/assets/keys/kotzilla.key
+kotzilla.json
+kotzilla.key
