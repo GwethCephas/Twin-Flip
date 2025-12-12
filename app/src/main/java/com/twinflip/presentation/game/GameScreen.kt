@@ -40,6 +40,7 @@ import androidx.compose.ui.text.font.FontWeight.Companion.SemiBold
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.twinflip.R
+import com.twinflip.presentation.common.calculateScore
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -74,10 +75,14 @@ fun GameScreen(
 
             val currentElapsedTime = state.time
 
+            val currentScore = calculateScore(
+                state.moves,
+                parseTimeToSeconds(currentElapsedTime)
+            )
             GameCompleteScreen(
                 time = currentElapsedTime,
                 moves = state.moves,
-                score = 800,
+                score = currentScore,
                 onNavigateToThemeScreen = onNavigateBack,
                 onPlayAgainClick = {
                     viewModel.loadGames(themeName)
@@ -179,7 +184,15 @@ fun GameScreen(
         }
     }
 }
+fun parseTimeToSeconds(timeString: String): Int {
+    val parts = timeString.split(":")
+    if (parts.size != 2) return 0  // fallback for invalid format
 
+    val minutes = parts[0].toIntOrNull() ?: 0
+    val seconds = parts[1].toIntOrNull() ?: 0
+
+    return (minutes * 60) + seconds
+}
 
 
 

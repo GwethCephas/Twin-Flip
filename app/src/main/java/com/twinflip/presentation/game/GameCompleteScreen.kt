@@ -43,7 +43,7 @@ fun GameCompleteScreen(
     ) {
 
         Text(
-            text = "Level Complete!",
+            text = if (score == 1000) "Perfect Score!" else "Level Complete!",
             fontSize = MaterialTheme.typography.headlineLarge.fontSize,
             textAlign = TextAlign.Center,
             color = Color.White,

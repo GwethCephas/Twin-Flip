@@ -28,14 +28,14 @@ fun HomeScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = R.drawable.twin_flip_logo),
+            painter = painterResource(id = R.drawable.twin_flip_mipmap_),
             contentDescription = "Twin Flip Logo"
         )
         CustomButton(
             text = "Single Player",
             color = MaterialTheme.colorScheme.primary,
             onClick = {
-                onNavigateToThemeScreen()
+
             }
         )
         CustomButton(

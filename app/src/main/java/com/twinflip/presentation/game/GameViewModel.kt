@@ -1,5 +1,6 @@
 package com.twinflip.presentation.game
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.twinflip.domain.usecase.CardsUseCase
@@ -107,7 +108,8 @@ class GameViewModel(
                     delay(1000)
                     _gameUiState.update {
                         it.copy(
-                            time = formatTime(0)
+                            time = formatTime(0),
+                            score = 0
                         )
                     }
                 }
@@ -183,6 +185,7 @@ class GameViewModel(
         timerJob = null
     }
 
+    @SuppressLint("DefaultLocale")
     private fun formatTime(totalSeconds: Int): String {
         val minutes = totalSeconds / 60
         val seconds = totalSeconds % 60

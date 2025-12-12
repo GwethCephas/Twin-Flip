@@ -4,6 +4,7 @@ data class GameUiState(
     val cards: List<GameCard> = emptyList(),
     val moves: Int = 0,
     val time: String = "00:00",
+    val score: Int = 0,
     val matchedPairs: Int = 0,
     val firstSelected: GameCard? = null,
     val secondSelected: GameCard? = null,
