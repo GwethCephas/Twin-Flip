@@ -1,6 +1,7 @@
 package com.twinflip.di
 
 import com.twinflip.data.local.datasource.ThemeProvider
+import com.twinflip.data.local.persistence.datastore.ThemeDatastore
 import com.twinflip.data.repository.CardRepositoryImpl
 import com.twinflip.data.repository.ThemeRepositoryImpl
 import com.twinflip.domain.repository.CardRepository
@@ -17,7 +18,9 @@ val appModule = module {
 
     single { ThemeProvider(androidContext()) }
 
-    single<ThemeRepository> { ThemeRepositoryImpl(get()) }
+    single { ThemeDatastore(androidContext()) }
+
+    single<ThemeRepository> { ThemeRepositoryImpl(get(), get()) }
 
     single<CardRepository> { CardRepositoryImpl(get()) }
 
@@ -28,5 +31,7 @@ val appModule = module {
     viewModel { ThemeViewModel(get()) }
 
     viewModel { GameViewModel(get()) }
+
+
 
 }

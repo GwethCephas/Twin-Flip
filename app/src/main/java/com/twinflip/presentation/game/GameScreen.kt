@@ -27,6 +27,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -41,6 +42,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.twinflip.R
 import com.twinflip.presentation.common.calculateScore
+import com.twinflip.presentation.theme.ThemeViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -50,16 +52,27 @@ fun GameScreen(
     modifier: Modifier = Modifier,
     viewModel: GameViewModel,
     themeName: String,
+    themeViewModel: ThemeViewModel,
     onNavigateBack: () -> Unit
 ) {
     val state by viewModel.gameUiState.collectAsState()
     val cardSize = (LocalConfiguration.current.screenWidthDp - 20) / 4
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(themeName) {
         viewModel.loadGames(themeName)
     }
-    LaunchedEffect(onNavigateBack) {
-        viewModel.stopTimer()
+
+    DisposableEffect(Unit) {
+        onDispose {
+            viewModel.stopTimer()
+        }
+    }
+
+    LaunchedEffect(state.gameCompleted) {
+        if (state.gameCompleted) {
+            themeViewModel.unlockNextTheme(themeName)
+            viewModel.stopTimer()
+        }
     }
 
     Column(
@@ -71,14 +84,13 @@ fun GameScreen(
     ) {
         if (state.gameCompleted) {
 
-            viewModel.stopTimer()
-
             val currentElapsedTime = state.time
 
             val currentScore = calculateScore(
                 state.moves,
                 parseTimeToSeconds(currentElapsedTime)
             )
+
             GameCompleteScreen(
                 time = currentElapsedTime,
                 moves = state.moves,
@@ -88,7 +100,7 @@ fun GameScreen(
                     viewModel.loadGames(themeName)
                 }
             )
-
+            
         } else {
             CenterAlignedTopAppBar(
                 modifier = modifier.windowInsetsPadding(WindowInsets.statusBars),
@@ -186,24 +198,10 @@ fun GameScreen(
 }
 fun parseTimeToSeconds(timeString: String): Int {
     val parts = timeString.split(":")
-    if (parts.size != 2) return 0  // fallback for invalid format
+    if (parts.size != 2) return 0
 
     val minutes = parts[0].toIntOrNull() ?: 0
     val seconds = parts[1].toIntOrNull() ?: 0
 
     return (minutes * 60) + seconds
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-

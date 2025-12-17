@@ -18,11 +18,15 @@ gson = "2.13.2"
 
 coil = "2.6.0"
 
+datastore = "1.1.1"
+
 [libraries]
+datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastore" }
+datastore-core = { module = "androidx.datastore:datastore-core", version.ref = "datastore" }
+
 coil = { module = "io.coil-kt:coil", version.ref = "coil" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
 coil-svg = { module = "io.coil-kt:coil-svg", version.ref = "coil" }
-
 
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 

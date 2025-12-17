@@ -2,10 +2,12 @@ package com.twinflip.presentation.theme
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.twinflip.domain.model.Theme
 import com.twinflip.domain.usecase.ThemesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
@@ -17,22 +19,50 @@ class ThemeViewModel(
     val themeUiState = _themeUiState.asStateFlow()
 
     init {
-        loadThemes()
+        observeThemes()
     }
 
-    fun loadThemes() {
+    private fun observeThemes() {
         viewModelScope.launch {
             _themeUiState.update { it.copy(isLoading = true) }
 
             val themes = themesUseCase.invoke()
 
-            _themeUiState.update {
-                it.copy(
-                    isLoading = false,
-                    themes = themes
-                )
+            val themeFlows = themes.mapIndexed { index, theme ->
+                if (index == 0) {
+                    flowOf(theme.copy(isUnLocked = true))
+                } else {
+                    themesUseCase.isThemeLocked(theme.themeName).map { isUnlocked ->
+                        theme.copy(isUnLocked = isUnlocked)
+                    }
+                }
+            }
+
+            combine(themeFlows) { themeArray ->
+                themeArray.toList()
+            }.collect { updatedThemes ->
+                _themeUiState.update {
+                    it.copy(
+                        isLoading = false,
+                        themes = updatedThemes
+                    )
+                }
             }
         }
     }
+
+    fun unlockNextTheme(themeName: String) {
+        viewModelScope.launch {
+            val currentThemes = _themeUiState.value.themes
+            val currentTheme = currentThemes.indexOfFirst { it.themeName == themeName }
+
+            if (currentTheme != -1 && currentTheme + 1 < currentThemes.size) {
+                val nextTheme = currentThemes[currentTheme + 1]
+                themesUseCase.invoke(nextTheme.themeName)
+            }
+        }
+    }
+
+
 
 }
