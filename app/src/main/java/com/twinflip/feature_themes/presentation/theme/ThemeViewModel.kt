@@ -2,7 +2,7 @@ package com.twinflip.feature_themes.presentation.theme
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.twinflip.feature_themes.domain.usecase.ThemesUseCase
+import com.twinflip.core.domain.usecase.ThemesUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine

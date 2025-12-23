@@ -2,7 +2,7 @@ package com.twinflip.core.data.datasource
 
 import android.content.Context
 import com.google.gson.Gson
-import com.twinflip.feature_themes.data.local.model.ThemeEntity
+import com.twinflip.core.data.model.ThemeEntity
 
 object ThemeLoader {
 

@@ -1,5 +1,7 @@
 package com.twinflip.core.presentation.game
 
+import com.twinflip.core.domain.game.GameCard
+
 data class GameUiState(
     val cards: List<GameCard> = emptyList(),
     val moves: Int = 0,

@@ -1,4 +1,4 @@
-package com.twinflip.core.presentation.game
+package com.twinflip.core.domain.game
 
 import com.twinflip.core.domain.model.CardData
 

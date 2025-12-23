@@ -1,6 +1,6 @@
 package com.twinflip.feature_themes.presentation.theme
 
-import com.twinflip.feature_themes.domain.model.Theme
+import com.twinflip.core.domain.model.Theme
 
 data class ThemeUiState(
     val isLoading: Boolean = false,

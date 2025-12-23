@@ -1,4 +1,4 @@
-package com.twinflip.feature_themes.data.utils
+package com.twinflip.core.data.utils
 
 object Constants {
     const val FRUITS = "fruits"

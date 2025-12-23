@@ -1,6 +1,6 @@
-package com.twinflip.feature_themes.domain.repository
+package com.twinflip.core.domain.repository
 
-import com.twinflip.feature_themes.domain.model.Theme
+import com.twinflip.core.domain.model.Theme
 import kotlinx.coroutines.flow.Flow
 
 interface ThemeRepository {

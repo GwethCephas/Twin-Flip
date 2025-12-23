@@ -3,7 +3,8 @@ package com.twinflip.core.presentation.game
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.twinflip.core.domain.usecase.CardsUseCase
+import com.twinflip.core.domain.game.GameCard
+import com.twinflip.core.domain.game.GameEngine
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,7 +14,7 @@ import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
 
 class GameViewModel(
-    private val cardsUseCase: CardsUseCase
+    private val gameEngine: GameEngine
 ) : ViewModel() {
 
     private var timerJob: Job? = null
@@ -25,16 +26,7 @@ class GameViewModel(
 
     fun loadGames(themeName: String) {
         viewModelScope.launch {
-            val cards = cardsUseCase.invoke(themeName)
-
-            val shuffledCards = (cards + cards)
-                .shuffled()
-                .mapIndexed { index, card ->
-                    GameCard(
-                        id = index,
-                        card = card
-                    )
-                }
+            val shuffledCards = gameEngine.loadGames(themeName)
 
             _gameUiState.update {
                 it.copy(
@@ -135,9 +127,7 @@ class GameViewModel(
     fun flipCard(id: Int) {
         _gameUiState.update { state ->
             state.copy(
-                cards = state.cards.map {
-                    if (it.id == id) it.copy(isFlipped = true) else it
-                }
+                cards = gameEngine.flipCard(state.cards, id)
             )
         }
     }
@@ -145,9 +135,7 @@ class GameViewModel(
     fun flipCardBack(id: Int) {
         _gameUiState.update { state ->
             state.copy(
-                cards = state.cards.map {
-                    if (it.id == id) it.copy(isFlipped = false) else it
-                }
+                cards = gameEngine.flipCardBack(state.cards, id)
             )
         }
     }
@@ -155,9 +143,7 @@ class GameViewModel(
     fun markAsMatched(id: Int) {
         _gameUiState.update { state ->
             state.copy(
-                cards = state.cards.map {
-                    if (it.id == id) it.copy(isMatched = true) else it
-                }
+                cards = gameEngine.markAsMatched(state.cards, id)
             )
         }
     }

@@ -1,10 +1,10 @@
-package com.twinflip.feature_themes.data.repository
+package com.twinflip.core.data.repository
 
 import com.twinflip.core.data.datasource.ThemeProvider
+import com.twinflip.core.data.mapper.toDomainTheme
 import com.twinflip.core.data.persistence.datastore.ThemeDatastore
-import com.twinflip.feature_themes.data.local.mapper.toDomainTheme
-import com.twinflip.feature_themes.domain.model.Theme
-import com.twinflip.feature_themes.domain.repository.ThemeRepository
+import com.twinflip.core.domain.model.Theme
+import com.twinflip.core.domain.repository.ThemeRepository
 import kotlinx.coroutines.flow.Flow
 
 class ThemeRepositoryImpl(

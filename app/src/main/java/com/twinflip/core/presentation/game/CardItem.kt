@@ -31,6 +31,7 @@ import coil.ImageLoader
 import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
+import com.twinflip.core.domain.game.GameCard
 
 @Composable
 fun CardItem(

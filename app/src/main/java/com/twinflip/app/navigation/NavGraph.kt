@@ -9,6 +9,7 @@ import androidx.navigation.navArgument
 import com.twinflip.core.presentation.game.GameScreen
 import com.twinflip.core.presentation.game.GameViewModel
 import com.twinflip.core.presentation.home.HomeScreen
+import com.twinflip.feature_multiplayer.presentation.MultiplayerScreen
 import com.twinflip.feature_themes.presentation.theme.ThemeScreen
 import com.twinflip.feature_themes.presentation.theme.ThemeViewModel
 
@@ -63,6 +64,12 @@ fun NavGraph(
                 }
             )
 
+        }
+
+        composable(
+            route = NavRoutes.Multiplayer.route
+        ) {
+            MultiplayerScreen()
         }
 
     }

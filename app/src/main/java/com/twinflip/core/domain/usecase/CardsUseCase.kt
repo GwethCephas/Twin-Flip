@@ -10,4 +10,8 @@ class CardsUseCase(
         return cardRepository.getCardsForTheme(theme)
     }
 
+    operator fun invoke(): List<CardData> {
+        return cardRepository.getRandomCards()
+    }
+
 }

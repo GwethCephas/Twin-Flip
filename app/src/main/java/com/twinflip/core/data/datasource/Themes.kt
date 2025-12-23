@@ -1,18 +1,18 @@
 package com.twinflip.core.data.datasource
 
 import android.content.Context
-import com.twinflip.feature_themes.data.utils.Constants.ANIMALS
-import com.twinflip.feature_themes.data.utils.Constants.EMOJIS
-import com.twinflip.feature_themes.data.utils.Constants.FANTASY
-import com.twinflip.feature_themes.data.utils.Constants.FOODS
-import com.twinflip.feature_themes.data.utils.Constants.FRUITS
-import com.twinflip.feature_themes.data.utils.Constants.MUSIC
-import com.twinflip.feature_themes.data.utils.Constants.NATURE
-import com.twinflip.feature_themes.data.utils.Constants.SHAPES
-import com.twinflip.feature_themes.data.utils.Constants.SPACE
-import com.twinflip.feature_themes.data.utils.Constants.SPORTS
-import com.twinflip.feature_themes.data.utils.Constants.WATER
-import com.twinflip.feature_themes.data.utils.Constants.VEHICLES
+import com.twinflip.core.data.utils.Constants.ANIMALS
+import com.twinflip.core.data.utils.Constants.EMOJIS
+import com.twinflip.core.data.utils.Constants.FANTASY
+import com.twinflip.core.data.utils.Constants.FOODS
+import com.twinflip.core.data.utils.Constants.FRUITS
+import com.twinflip.core.data.utils.Constants.MUSIC
+import com.twinflip.core.data.utils.Constants.NATURE
+import com.twinflip.core.data.utils.Constants.SHAPES
+import com.twinflip.core.data.utils.Constants.SPACE
+import com.twinflip.core.data.utils.Constants.SPORTS
+import com.twinflip.core.data.utils.Constants.WATER
+import com.twinflip.core.data.utils.Constants.VEHICLES
 
 object Themes {
     fun animals(context: Context) = ThemeLoader.loadTheme(context, ANIMALS)

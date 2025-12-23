@@ -3,12 +3,14 @@ package com.twinflip.app.di
 import com.twinflip.core.data.datasource.ThemeProvider
 import com.twinflip.core.data.persistence.datastore.ThemeDatastore
 import com.twinflip.core.data.repository.CardRepositoryImpl
-import com.twinflip.feature_themes.data.repository.ThemeRepositoryImpl
+import com.twinflip.core.data.repository.ThemeRepositoryImpl
+import com.twinflip.core.domain.game.GameEngine
 import com.twinflip.core.domain.repository.CardRepository
-import com.twinflip.feature_themes.domain.repository.ThemeRepository
+import com.twinflip.core.domain.repository.ThemeRepository
 import com.twinflip.core.domain.usecase.CardsUseCase
-import com.twinflip.feature_themes.domain.usecase.ThemesUseCase
+import com.twinflip.core.domain.usecase.ThemesUseCase
 import com.twinflip.core.presentation.game.GameViewModel
+import com.twinflip.feature_multiplayer.presentation.MultiplayerViewModel
 import com.twinflip.feature_themes.presentation.theme.ThemeViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
@@ -28,9 +30,13 @@ val appModule = module {
 
     single { CardsUseCase(get()) }
 
+    single { GameEngine(get()) }
+
     viewModel { ThemeViewModel(get()) }
 
     viewModel { GameViewModel(get()) }
+
+    viewModel { MultiplayerViewModel(get()) }
 
 
 

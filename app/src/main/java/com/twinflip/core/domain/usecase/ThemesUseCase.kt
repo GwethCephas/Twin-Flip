@@ -1,7 +1,7 @@
-package com.twinflip.feature_themes.domain.usecase
+package com.twinflip.core.domain.usecase
 
-import com.twinflip.feature_themes.domain.model.Theme
-import com.twinflip.feature_themes.domain.repository.ThemeRepository
+import com.twinflip.core.domain.model.Theme
+import com.twinflip.core.domain.repository.ThemeRepository
 import kotlinx.coroutines.flow.Flow
 
 class ThemesUseCase(

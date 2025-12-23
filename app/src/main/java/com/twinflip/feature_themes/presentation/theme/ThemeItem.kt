@@ -18,7 +18,7 @@ import coil.ImageLoader
 import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
 import com.twinflip.R
-import com.twinflip.feature_themes.domain.model.Theme
+import com.twinflip.core.domain.model.Theme
 
 @Composable
 fun ThemeItem(

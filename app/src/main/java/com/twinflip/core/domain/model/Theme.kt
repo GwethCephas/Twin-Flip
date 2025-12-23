@@ -1,6 +1,4 @@
-package com.twinflip.feature_themes.domain.model
-
-import com.twinflip.core.domain.model.CardData
+package com.twinflip.core.domain.model
 
 data class Theme(
     val themeName: String = "",
