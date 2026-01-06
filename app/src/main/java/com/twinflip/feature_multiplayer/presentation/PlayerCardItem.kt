@@ -2,17 +2,26 @@ package com.twinflip.feature_multiplayer.presentation
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.twinflip.R
 import com.twinflip.feature_multiplayer.model.Player
@@ -24,32 +33,84 @@ fun PlayerCardItem(
 ) {
     Card(
         modifier = modifier
+            .width(230.dp)
+            .height(120.dp)
             .padding(10.dp)
-            .background(MaterialTheme.colorScheme.surface)
-            .border(
-                width = 1.dp,
-                color = if (player.isActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
-                shape = MaterialTheme.shapes.medium
-            )
     ) {
-        Box(
+        Row(
             modifier = Modifier
-                .padding(10.dp)
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.surface)
+                .border(
+                    width = 3.dp,
+                    color = if (player.isActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                    shape = MaterialTheme.shapes.medium
+                ),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Icon(
-                painter = painterResource(id = R.drawable.person),
-                contentDescription = "Player icon",
-                tint = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.size(50.dp)
-            )
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(10.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+
+
+                Icon(
+                    modifier = Modifier.size(50.dp),
+                    painter = painterResource(id = R.drawable.person),
+                    contentDescription = "Player icon",
+                    tint = MaterialTheme.colorScheme.onSurface,
+                )
+
+                Text(
+                    text = player.name,
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                    fontWeight = FontWeight.SemiBold
+                )
+            }
+
+            VerticalDivider(modifier = Modifier.width(1.dp).padding(vertical = 20.dp))
+
+            Column(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(10.dp),
+                horizontalAlignment = Alignment.Start,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = "Score : ${player.score}",
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.Start
+                )
+                Text(
+                    text = "Matched pairs : ${player.matchedPairs}",
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                    fontWeight = FontWeight.SemiBold,
+                    textAlign = TextAlign.Start
+                )
+            }
         }
-        Text(
-            text = player.name,
-            modifier = Modifier.padding(10.dp),
-            color = MaterialTheme.colorScheme.onSurface,
-            fontSize = MaterialTheme.typography.titleMedium.fontSize,
-            fontWeight = FontWeight.SemiBold
-        )
+
+
     }
 
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PlayerCardItemPreview() {
+    PlayerCardItem(
+        player = Player(
+            name = "Player 1",
+            isActive = true
+        )
+    )
 }

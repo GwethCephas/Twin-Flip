@@ -9,6 +9,7 @@ import com.twinflip.core.presentation.game.GameViewModel
 import com.twinflip.app.navigation.NavGraph
 import com.twinflip.feature_themes.presentation.theme.ThemeViewModel
 import com.twinflip.core.ui.theme.TwinFlipTheme
+import com.twinflip.feature_multiplayer.presentation.MultiplayerViewModel
 import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
@@ -24,10 +25,12 @@ class MainActivity : ComponentActivity() {
             TwinFlipTheme {
                 val gameViewModel = koinViewModel<GameViewModel>()
                 val themeViewModel = koinViewModel<ThemeViewModel>()
+                val multiplayerViewModel = koinViewModel<MultiplayerViewModel>()
 
                 NavGraph(
                     themeViewModel = themeViewModel,
-                    gameViewModel = gameViewModel
+                    gameViewModel = gameViewModel,
+                    multiplayerViewModel = multiplayerViewModel
                 )
             }
         }

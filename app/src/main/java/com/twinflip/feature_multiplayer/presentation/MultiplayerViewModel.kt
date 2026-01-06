@@ -37,7 +37,7 @@ class MultiplayerViewModel(
                         cards = shuffledCards,
                         playerOne = playerOne,
                         playerTwo = playerTwo,
-                        activePlayerId = it.playerOne?.id.toString(),
+                        activePlayerId = playerOne.id.toString(), // Correctly set initial active player
                         turnNumber = 1,
                         isComparing = false,
                         firstSelected = null,
@@ -131,7 +131,7 @@ class MultiplayerViewModel(
     }
 
     private fun compareCards() {
-        viewModelScope.launch {
+        viewModelScope.launch { 
             val state = _multiplayerUiState.value
 
             delay(800)
@@ -141,23 +141,30 @@ class MultiplayerViewModel(
 
 
             if (first.card.name == second.card.name) {
+
                 markAsMatched(first.id)
                 markAsMatched(second.id)
 
-
                 val newMatched = state.matchedPairs + 1
+                val activePlayerIsOne = state.activePlayerId == state.playerOne?.id.toString()
 
-                _multiplayerUiState.update {
+                // Update score for the active player and check if the game is finished
+                _multiplayerUiState.update { 
                     it.copy(
                         matchedPairs = newMatched,
-                        gamePhase = if (newMatched == (state.cards.size / 2)) GamePhase.Finished else GamePhase.Idle
+                        playerOne = if (activePlayerIsOne) it.playerOne?.copy(score = it.playerOne.score + 1) else it.playerOne,
+                        playerTwo = if (!activePlayerIsOne) it.playerTwo?.copy(score = it.playerTwo.score + 1) else it.playerTwo,
+                        gamePhase = if (newMatched == (it.cards.size / 2)) GamePhase.Finished else GamePhase.InProgress
                     )
                 }
-
+                // Player gets to go again, so we DO NOT switch turns.
 
             } else {
+                // --- NO MATCH --- 
                 flipCardBack(first.id)
                 flipCardBack(second.id)
+                // It's not a match, so we switch turns.
+                switchTurns()
             }
 
             _multiplayerUiState.update {
@@ -196,5 +203,3 @@ class MultiplayerViewModel(
     }
 
 }
-
-

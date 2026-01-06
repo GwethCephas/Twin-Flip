@@ -10,13 +10,15 @@ import com.twinflip.core.presentation.game.GameScreen
 import com.twinflip.core.presentation.game.GameViewModel
 import com.twinflip.core.presentation.home.HomeScreen
 import com.twinflip.feature_multiplayer.presentation.MultiplayerScreen
+import com.twinflip.feature_multiplayer.presentation.MultiplayerViewModel
 import com.twinflip.feature_themes.presentation.theme.ThemeScreen
 import com.twinflip.feature_themes.presentation.theme.ThemeViewModel
 
 @Composable
 fun NavGraph(
     themeViewModel: ThemeViewModel,
-    gameViewModel: GameViewModel
+    gameViewModel: GameViewModel,
+    multiplayerViewModel: MultiplayerViewModel
 ) {
     val navController = rememberNavController()
 
@@ -28,7 +30,13 @@ fun NavGraph(
             HomeScreen(
                 onNavigateToThemeScreen = {
                     navController.navigate(NavRoutes.Themes.route)
-                }
+                },
+                onNavigateToMultiPlayerScreen = { themeName ->
+                    navController.navigate(NavRoutes.Multiplayer.route + "/$themeName") {
+                        launchSingleTop = true
+                    }
+                },
+                themeViewModel = themeViewModel
             )
         }
 
@@ -67,9 +75,18 @@ fun NavGraph(
         }
 
         composable(
-            route = NavRoutes.Multiplayer.route
-        ) {
-            MultiplayerScreen()
+            route = NavRoutes.Multiplayer.route + "/{themeName}",
+            arguments = listOf(
+                navArgument("themeName") { type = NavType.StringType }
+            )
+        ) { backStackEntry ->
+
+            val themeName = backStackEntry.arguments?.getString("themeName") ?: ""
+
+            MultiplayerScreen(
+                multiplayerViewModel = multiplayerViewModel,
+                themeName = themeName
+            )
         }
 
     }
