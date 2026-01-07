@@ -3,6 +3,7 @@ package com.twinflip.core.presentation.home
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,54 +32,48 @@ fun HomeScreen(
     themeViewModel: ThemeViewModel
 ) {
 
-    var showBottomSheet by remember { mutableStateOf(false) }
+    var isThemePickerVisible by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.onPrimaryContainer),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+    Box(
+        modifier = modifier.fillMaxSize()
     ) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.onPrimaryContainer),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.twin_flip_mipmap_),
+                contentDescription = "Twin Flip Logo"
+            )
+            CustomButton(
+                text = "Single Player",
+                color = MaterialTheme.colorScheme.primary,
+                onClick = {
+                    onNavigateToThemeScreen()
+                }
+            )
+            CustomButton(
+                text = "Two Players",
+                color = MaterialTheme.colorScheme.surfaceContainer,
+                onClick = {
+                    isThemePickerVisible = true
+                }
+            )
+        }
         ThemePickerSheet(
             themeViewModel = themeViewModel,
-            isVisible = showBottomSheet,
+            isVisible = isThemePickerVisible,
+            onDismissRequest = { isThemePickerVisible = false },
             onNavigateToMultiplayer = { themeName ->
                 scope.launch {
-                    showBottomSheet = false
+                    isThemePickerVisible = false
                     onNavigateToMultiPlayerScreen(themeName)
                 }
             }
         )
-
-        Image(
-            painter = painterResource(id = R.drawable.twin_flip_mipmap_),
-            contentDescription = "Twin Flip Logo"
-        )
-        CustomButton(
-            text = "Single Player",
-            color = MaterialTheme.colorScheme.primary,
-            onClick = {
-                onNavigateToThemeScreen()
-            }
-        )
-        CustomButton(
-            text = "Two Players",
-            color = MaterialTheme.colorScheme.primary,
-            onClick = {
-                showBottomSheet = true
-            }
-        )
-
-        CustomButton(
-            text = "QuickPlay",
-            color = MaterialTheme.colorScheme.surfaceContainer,
-            onClick = {
-                onNavigateToThemeScreen()
-            }
-        )
-
-
     }
 }

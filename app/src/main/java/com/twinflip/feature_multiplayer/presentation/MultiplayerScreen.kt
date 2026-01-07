@@ -28,7 +28,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.twinflip.core.presentation.game.CardItem
+import com.twinflip.feature_singleplayer.presentation.game.CardItem
 import kotlinx.coroutines.delay
 
 @SuppressLint("ConfigurationScreenWidthHeight")
@@ -53,46 +53,56 @@ fun MultiplayerScreen(
 
     Column(
         modifier = modifier
-            .fillMaxSize().background(MaterialTheme.colorScheme.surfaceContainer)
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.onPrimaryContainer)
             .padding(10.dp)
             .windowInsetsPadding(
                 WindowInsets.statusBars
-            )
-            ,
+            ),
         verticalArrangement = Arrangement.spacedBy(10.dp)
     ) {
 
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.Start
-        ) {
-            state.playerOne?.let {
-                PlayerCardItem(
-                    player = it
-                )
+        when (state.gamePhase) {
+            is GamePhase.Error -> {
+                Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show()
+                multiplayerViewModel.loadGame(themeName)
+            }
+
+            GamePhase.Finished -> {
 
             }
 
-        }
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .wrapContentHeight(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-
-            when (state.gamePhase) {
-                is GamePhase.Error -> {
-                    Toast.makeText(context, "Something went wrong", Toast.LENGTH_SHORT).show()
-                    multiplayerViewModel.loadGame(themeName)
+            GamePhase.Idle -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
                 }
-                GamePhase.Finished -> {
+            }
+
+            GamePhase.InProgress -> {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Start
+                ) {
+                    state.playerOne?.let {
+                        PlayerCardItem(
+                            player = it
+                        )
+
+                    }
 
                 }
-                GamePhase.Idle -> {}
-                GamePhase.InProgress -> {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(),
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.Center
+                ) {
+
                     LazyVerticalGrid(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -115,33 +125,34 @@ fun MultiplayerScreen(
 
                     }
                 }
-                GamePhase.Loading -> {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator()
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.End
+                ) {
+
+                    state.playerTwo?.let {
+                        PlayerCardItem(
+                            player = it
+                        )
                     }
                 }
 
+
             }
 
-
-        }
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.End
-        ) {
-
-            state.playerTwo?.let {
-                PlayerCardItem(
-                    player = it
-                )
+            GamePhase.Loading -> {
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
             }
+
         }
+
 
     }
-
 
 }

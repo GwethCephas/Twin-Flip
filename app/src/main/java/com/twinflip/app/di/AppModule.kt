@@ -9,7 +9,7 @@ import com.twinflip.core.domain.repository.CardRepository
 import com.twinflip.core.domain.repository.ThemeRepository
 import com.twinflip.core.domain.usecase.CardsUseCase
 import com.twinflip.core.domain.usecase.ThemesUseCase
-import com.twinflip.core.presentation.game.GameViewModel
+import com.twinflip.feature_singleplayer.presentation.game.GameViewModel
 import com.twinflip.feature_multiplayer.presentation.MultiplayerViewModel
 import com.twinflip.feature_themes.presentation.theme.ThemeViewModel
 import org.koin.android.ext.koin.androidContext

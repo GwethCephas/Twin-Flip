@@ -1,4 +1,4 @@
-package com.twinflip.core.presentation.game
+package com.twinflip.feature_singleplayer.presentation.game
 
 import android.util.Log
 import androidx.compose.animation.animateColorAsState

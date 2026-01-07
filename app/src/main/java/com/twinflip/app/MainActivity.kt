@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.twinflip.core.presentation.game.GameViewModel
+import com.twinflip.feature_singleplayer.presentation.game.GameViewModel
 import com.twinflip.app.navigation.NavGraph
 import com.twinflip.feature_themes.presentation.theme.ThemeViewModel
 import com.twinflip.core.ui.theme.TwinFlipTheme

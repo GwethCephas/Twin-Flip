@@ -6,8 +6,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.twinflip.core.presentation.game.GameScreen
-import com.twinflip.core.presentation.game.GameViewModel
+import com.twinflip.feature_singleplayer.presentation.game.GameScreen
+import com.twinflip.feature_singleplayer.presentation.game.GameViewModel
 import com.twinflip.core.presentation.home.HomeScreen
 import com.twinflip.feature_multiplayer.presentation.MultiplayerScreen
 import com.twinflip.feature_multiplayer.presentation.MultiplayerViewModel

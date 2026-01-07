@@ -1,4 +1,4 @@
-package com.twinflip.core.presentation.game
+package com.twinflip.feature_singleplayer.presentation.game
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
