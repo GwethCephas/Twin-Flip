@@ -14,7 +14,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight.Companion.SemiBold
 import androidx.compose.ui.text.style.TextAlign
@@ -46,7 +45,7 @@ fun GameCompleteScreen(
             text = if (score == 1000) "Perfect Score!" else "Level Complete!",
             fontSize = MaterialTheme.typography.headlineLarge.fontSize,
             textAlign = TextAlign.Center,
-            color = Color.White,
+            color = MaterialTheme.colorScheme.onPrimary,
             fontWeight = SemiBold
         )
         Spacer(modifier = Modifier.height(20.dp))
@@ -79,7 +78,7 @@ fun GameCompleteScreen(
             onClick = {
                 onPlayAgainClick()
             },
-            color = MaterialTheme.colorScheme.onPrimaryContainer
+            color = MaterialTheme.colorScheme.tertiary
         )
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -90,7 +89,7 @@ fun GameCompleteScreen(
             onClick = {
                 onNavigateToThemeScreen()
             },
-            color = MaterialTheme.colorScheme.onPrimaryContainer
+            color = MaterialTheme.colorScheme.secondary
         )
 
 

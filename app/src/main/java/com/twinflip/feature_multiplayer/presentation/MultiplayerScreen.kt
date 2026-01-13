@@ -54,7 +54,7 @@ fun MultiplayerScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.onPrimaryContainer)
+            .background(MaterialTheme.colorScheme.tertiary)
             .padding(10.dp)
             .windowInsetsPadding(
                 WindowInsets.statusBars

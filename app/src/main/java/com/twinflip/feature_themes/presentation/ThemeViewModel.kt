@@ -1,4 +1,4 @@
-package com.twinflip.feature_themes.presentation.theme
+package com.twinflip.feature_themes.presentation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

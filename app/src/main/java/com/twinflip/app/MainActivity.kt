@@ -7,7 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.twinflip.feature_singleplayer.presentation.game.GameViewModel
 import com.twinflip.app.navigation.NavGraph
-import com.twinflip.feature_themes.presentation.theme.ThemeViewModel
+import com.twinflip.feature_themes.presentation.ThemeViewModel
 import com.twinflip.core.ui.theme.TwinFlipTheme
 import com.twinflip.feature_multiplayer.presentation.MultiplayerViewModel
 import org.koin.androidx.compose.koinViewModel

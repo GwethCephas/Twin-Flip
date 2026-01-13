@@ -34,7 +34,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight.Companion.SemiBold
@@ -42,7 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.twinflip.R
 import com.twinflip.core.presentation.common.calculateScore
-import com.twinflip.feature_themes.presentation.theme.ThemeViewModel
+import com.twinflip.feature_themes.presentation.ThemeViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -78,7 +77,7 @@ fun GameScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.onPrimaryContainer),
+            .background(MaterialTheme.colorScheme.tertiary),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Top
     ) {
@@ -105,14 +104,14 @@ fun GameScreen(
             CenterAlignedTopAppBar(
                 modifier = modifier.windowInsetsPadding(WindowInsets.statusBars),
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.onPrimaryContainer
+                    containerColor = MaterialTheme.colorScheme.tertiary
                 ),
                 title = {
                     Text(
                         text = themeName,
                         fontSize = MaterialTheme.typography.headlineMedium.fontSize,
                         fontWeight = SemiBold,
-                        color = Color.White
+                        color =  MaterialTheme.colorScheme.onPrimary
                     )
                 },
                 navigationIcon = {
@@ -121,7 +120,7 @@ fun GameScreen(
                             .padding(10.dp)
                             .size(40.dp)
                             .clip(RoundedCornerShape(10.dp))
-                            .background(MaterialTheme.colorScheme.surfaceVariant)
+                            .background(MaterialTheme.colorScheme.background)
                             .clickable { onNavigateBack() },
                         contentAlignment = Alignment.Center
                     ) {
@@ -129,7 +128,7 @@ fun GameScreen(
                             modifier = Modifier.size(24.dp),
                             painter = painterResource(id = R.drawable.outline_arrow_back_24),
                             contentDescription = "Back",
-                            tint = Color.Black
+                            tint =  MaterialTheme.colorScheme.onPrimary
                         )
                     }
 
@@ -140,7 +139,7 @@ fun GameScreen(
                             .wrapContentSize()
                             .padding(10.dp)
                             .clip(RoundedCornerShape(15.dp))
-                            .background(MaterialTheme.colorScheme.surfaceContainer),
+                            .background(MaterialTheme.colorScheme.background),
                         contentAlignment = Alignment.Center
                     ) {
                         Text(
@@ -148,7 +147,7 @@ fun GameScreen(
                             text = state.time,
                             fontSize = 15.sp,
                             fontWeight = SemiBold,
-                            color = Color.White
+                            color =  MaterialTheme.colorScheme.onPrimary
                         )
                     }
                 }
@@ -181,7 +180,7 @@ fun GameScreen(
                 modifier = Modifier
                     .wrapContentSize()
                     .clip(RoundedCornerShape(10.dp))
-                    .background(color = MaterialTheme.colorScheme.primary),
+                    .background(color = MaterialTheme.colorScheme.secondary),
                 contentAlignment = Alignment.Center
             ) {
                 Text(
@@ -189,7 +188,7 @@ fun GameScreen(
                     text = "Matched pairs ${state.matchedPairs} |  Moves ${state.moves}",
                     fontSize = 16.sp,
                     fontWeight = SemiBold,
-                    color = Color.White
+                    color =  MaterialTheme.colorScheme.onPrimary
                 )
             }
 

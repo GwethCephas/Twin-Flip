@@ -11,7 +11,7 @@ import com.twinflip.core.domain.usecase.CardsUseCase
 import com.twinflip.core.domain.usecase.ThemesUseCase
 import com.twinflip.feature_singleplayer.presentation.game.GameViewModel
 import com.twinflip.feature_multiplayer.presentation.MultiplayerViewModel
-import com.twinflip.feature_themes.presentation.theme.ThemeViewModel
+import com.twinflip.feature_themes.presentation.ThemeViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module

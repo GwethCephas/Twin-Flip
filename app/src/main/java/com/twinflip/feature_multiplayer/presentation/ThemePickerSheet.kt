@@ -9,6 +9,7 @@ import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -34,7 +35,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.twinflip.feature_themes.presentation.theme.ThemeViewModel
+import com.twinflip.feature_themes.presentation.ThemeViewModel
 import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
@@ -112,6 +113,7 @@ fun ThemePickerSheet(
                     shape = RoundedCornerShape(24.dp),
                 ) {
                     Column(
+                        modifier = Modifier.background(MaterialTheme.colorScheme.background),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(

@@ -58,8 +58,8 @@ fun CardItem(
         }
     }
     val cardColor = animateColorAsState(
-        targetValue = if (gameCard.isMatched) MaterialTheme.colorScheme.surfaceContainer
-        else MaterialTheme.colorScheme.surfaceVariant,
+        targetValue = if (gameCard.isMatched) MaterialTheme.colorScheme.primary
+        else MaterialTheme.colorScheme.background,
         animationSpec =
             tween(
                 durationMillis = 300,
@@ -97,7 +97,7 @@ fun CardItem(
                 modifier = Modifier
                     .fillMaxSize()
                     .size(cardSize)
-                    .background(MaterialTheme.colorScheme.surfaceVariant),
+                    .background(MaterialTheme.colorScheme.background),
             )
         } else {
 

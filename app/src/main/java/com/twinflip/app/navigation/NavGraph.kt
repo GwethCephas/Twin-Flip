@@ -11,8 +11,8 @@ import com.twinflip.feature_singleplayer.presentation.game.GameViewModel
 import com.twinflip.core.presentation.home.HomeScreen
 import com.twinflip.feature_multiplayer.presentation.MultiplayerScreen
 import com.twinflip.feature_multiplayer.presentation.MultiplayerViewModel
-import com.twinflip.feature_themes.presentation.theme.ThemeScreen
-import com.twinflip.feature_themes.presentation.theme.ThemeViewModel
+import com.twinflip.feature_themes.presentation.ThemeScreen
+import com.twinflip.feature_themes.presentation.ThemeViewModel
 
 @Composable
 fun NavGraph(

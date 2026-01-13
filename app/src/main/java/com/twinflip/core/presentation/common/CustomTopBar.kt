@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight.Companion.SemiBold
 import androidx.compose.ui.unit.dp
@@ -31,15 +30,15 @@ fun CustomTopBar(
 ) {
     CenterAlignedTopAppBar(
         modifier = modifier,
-        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.onPrimaryContainer
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.tertiary
         ),
         title = {
             Text(
                 text = title,
                 fontSize = MaterialTheme.typography.headlineMedium.fontSize,
                 fontWeight = SemiBold,
-                color = Color.White
+                color = MaterialTheme.colorScheme.onPrimary
             )
         },
         navigationIcon = {
@@ -48,7 +47,7 @@ fun CustomTopBar(
                     .padding(10.dp)
                     .size(40.dp)
                     .clip(RoundedCornerShape(10.dp))
-                    .background(MaterialTheme.colorScheme.surfaceVariant)
+                    .background(MaterialTheme.colorScheme.background)
                     .clickable { onNavigateBack() },
                 contentAlignment = Alignment.Center
             ) {
@@ -56,7 +55,7 @@ fun CustomTopBar(
                     modifier = Modifier.size(24.dp),
                     painter = painterResource(id = R.drawable.outline_arrow_back_24),
                     contentDescription = "Back",
-                    tint = Color.Black
+                    tint =  MaterialTheme.colorScheme.onPrimary
                 )
             }
 

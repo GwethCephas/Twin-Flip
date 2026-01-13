@@ -1,4 +1,4 @@
-package com.twinflip.feature_themes.presentation.theme
+package com.twinflip.feature_themes.presentation
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.AnimatedVisibility
@@ -56,7 +56,7 @@ fun ThemeScreen(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.onPrimaryContainer)
+            .background(MaterialTheme.colorScheme.tertiary)
     ) {
         CustomTopBar(
             modifier = modifier
@@ -101,6 +101,7 @@ fun ThemeScreen(
                     shape = RoundedCornerShape(24.dp),
                 ) {
                     Column(
+                        modifier = Modifier.background(MaterialTheme.colorScheme.background),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Text(

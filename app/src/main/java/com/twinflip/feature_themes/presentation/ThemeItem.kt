@@ -1,4 +1,4 @@
-package com.twinflip.feature_themes.presentation.theme
+package com.twinflip.feature_themes.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

@@ -1,4 +1,4 @@
-package com.twinflip.feature_themes.presentation.theme
+package com.twinflip.feature_themes.presentation
 
 import com.twinflip.core.domain.model.Theme
 

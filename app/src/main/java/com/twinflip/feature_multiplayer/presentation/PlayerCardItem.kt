@@ -33,17 +33,17 @@ fun PlayerCardItem(
 ) {
     Card(
         modifier = modifier
-            .width(230.dp)
-            .height(120.dp)
-            .padding(10.dp)
+            .width(200.dp)
+            .height(100.dp)
+            .padding(horizontal = 5.dp)
     ) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .background(MaterialTheme.colorScheme.surface)
+                .background(MaterialTheme.colorScheme.background)
                 .border(
-                    width = 3.dp,
-                    color = if (player.isActive) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.surfaceVariant,
+                    width = 4.dp,
+                    color = if (player.isActive) MaterialTheme.colorScheme.onBackground else MaterialTheme.colorScheme.background,
                     shape = MaterialTheme.shapes.medium
                 ),
             verticalAlignment = Alignment.CenterVertically,
@@ -59,16 +59,16 @@ fun PlayerCardItem(
 
 
                 Icon(
-                    modifier = Modifier.size(50.dp),
+                    modifier = Modifier.size(40.dp),
                     painter = painterResource(id = R.drawable.person),
                     contentDescription = "Player icon",
-                    tint = MaterialTheme.colorScheme.onSurface,
+                    tint = MaterialTheme.colorScheme.onBackground,
                 )
 
                 Text(
                     text = player.name,
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                    color =  MaterialTheme.colorScheme.onBackground,
+                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
                     fontWeight = FontWeight.SemiBold
                 )
             }
@@ -84,15 +84,15 @@ fun PlayerCardItem(
             ) {
                 Text(
                     text = "Score : ${player.score}",
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                    color =  MaterialTheme.colorScheme.onBackground,
+                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Start
                 )
                 Text(
                     text = "Matched pairs : ${player.matchedPairs}",
-                    color = MaterialTheme.colorScheme.onSurface,
-                    fontSize = MaterialTheme.typography.titleMedium.fontSize,
+                    color =  MaterialTheme.colorScheme.onBackground,
+                    fontSize = MaterialTheme.typography.titleSmall.fontSize,
                     fontWeight = FontWeight.SemiBold,
                     textAlign = TextAlign.Start
                 )
