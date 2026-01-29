@@ -22,7 +22,7 @@ class ThemeViewModel(
         observeThemes()
     }
 
-    private fun observeThemes() {
+     fun observeThemes() {
         viewModelScope.launch {
             _themeUiState.update { it.copy(isLoading = true) }
 

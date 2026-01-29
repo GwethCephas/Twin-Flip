@@ -1,5 +1,5 @@
 {
-  "themeName": "food_snacks",
+  "themeName": "foods",
   "images": [
     {"name": "taco", "path": "images/food_snacks/taco.svg"},
     {"name": "donut", "path": "images/food_snacks/donut.svg"},

@@ -29,8 +29,8 @@ class MultiplayerViewModel(
             viewModelScope.launch {
                 val shuffledCards = gameEngine.loadGames(themeName)
 
-                val playerOne = Player( name = "Player 1", isActive = true)
-                val playerTwo = Player( name = "Player 2", isActive = false)
+                val playerOne = Player(name = "Player 1", isActive = true)
+                val playerTwo = Player(name = "Player 2", isActive = false)
 
                 _multiplayerUiState.update {
                     it.copy(
@@ -105,40 +105,34 @@ class MultiplayerViewModel(
 
     fun cardClicked(card: GameCard) {
         val state = _multiplayerUiState.value
+        val currentCard = state.cards.find { it.id == card.id } ?: return
 
         if (state.isComparing) return
-
-        if (card.isFlipped || card.isMatched) return
+        if (currentCard.isFlipped || currentCard.isMatched) return
 
         if (state.firstSelected == null) {
-            flipCard(card.id)
-            _multiplayerUiState.update {
-                it.copy(firstSelected = card)
-            }
+            flipCard(currentCard.id)
+            _multiplayerUiState.update { it.copy(firstSelected = currentCard) }
             return
         }
+
         if (state.secondSelected == null) {
-            flipCard(card.id)
+            flipCard(currentCard.id)
             _multiplayerUiState.update {
-                it.copy(
-                    secondSelected = card,
-                    isComparing = true
-                )
+                it.copy(secondSelected = currentCard, isComparing = true)
             }
             compareCards()
         }
-
     }
 
     private fun compareCards() {
-        viewModelScope.launch { 
-            val state = _multiplayerUiState.value
-
+        viewModelScope.launch {
             delay(800)
+
+            val state = _multiplayerUiState.value
 
             val first = state.firstSelected!!
             val second = state.secondSelected!!
-
 
             if (first.card.name == second.card.name) {
 
@@ -149,21 +143,29 @@ class MultiplayerViewModel(
                 val activePlayerIsOne = state.activePlayerId == state.playerOne?.id.toString()
 
                 // Update score for the active player and check if the game is finished
-                _multiplayerUiState.update { 
+                _multiplayerUiState.update {
                     it.copy(
                         matchedPairs = newMatched,
-                        playerOne = if (activePlayerIsOne) it.playerOne?.copy(score = it.playerOne.score + 1) else it.playerOne,
-                        playerTwo = if (!activePlayerIsOne) it.playerTwo?.copy(score = it.playerTwo.score + 1) else it.playerTwo,
+                        playerOne = if (activePlayerIsOne)
+                            it.playerOne?.copy(
+                                matchedPairs = it.playerOne.matchedPairs + 1,
+                                score = (it.playerOne.score + 2) * 5
+                            )
+                        else it.playerOne,
+                        playerTwo = if (!activePlayerIsOne)
+                            it.playerTwo?.copy(
+                                matchedPairs = it.playerTwo.matchedPairs + 1,
+                                score = (it.playerTwo.score + 2) * 5
+                            )
+                        else it.playerTwo,
                         gamePhase = if (newMatched == (it.cards.size / 2)) GamePhase.Finished else GamePhase.InProgress
                     )
                 }
-                // Player gets to go again, so we DO NOT switch turns.
 
             } else {
-                // --- NO MATCH --- 
                 flipCardBack(first.id)
                 flipCardBack(second.id)
-                // It's not a match, so we switch turns.
+
                 switchTurns()
             }
 

@@ -7,7 +7,7 @@ object Constants {
     const val SPACE = "space"
     const val WATER = "water"
     const val FOODS = "foods"
-    const val VEHICLES = "vehicles"
+    const val VEHICLES = "vehicle"
     const val FANTASY = "fantasy"
     const val SPORTS = "sports"
     const val MUSIC = "music"
