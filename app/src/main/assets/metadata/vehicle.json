@@ -1,5 +1,6 @@
 {
   "themeName": "vehicle",
+  "backgroundImage": "vehicles",
   "images": [
     {"name": "bus", "path": "images/vehicle/bus.svg"},
     {"name": "car", "path": "images/vehicle/car.svg"},

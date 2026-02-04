@@ -127,7 +127,7 @@ fun ThemeScreen(
                                 ThemeItem(
                                     theme = theme,
                                     onThemeClick = {
-                                        onNavigateToGame(theme.themeName)
+                                        onNavigateToGame(theme.themeName + "/${theme.backgroundImage}")
                                     }
                                 )
                             }

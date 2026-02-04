@@ -1,5 +1,6 @@
 {
   "themeName": "sports",
+  "backgroundImage": "sports",
   "images": [
     {"name": "rugby", "path": "images/sports/rugby.svg"},
     {"name": "trophy", "path": "images/sports/trophy.svg"},

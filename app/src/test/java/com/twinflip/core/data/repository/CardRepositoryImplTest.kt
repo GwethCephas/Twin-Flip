@@ -3,8 +3,8 @@ package com.twinflip.core.data.repository
 import com.twinflip.core.data.datasource.ThemeProvider
 import com.twinflip.core.data.model.CardEntity
 import com.twinflip.core.data.model.ThemeEntity
-import com.twinflip.core.domain.model.CardData
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertNotNull
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.mock

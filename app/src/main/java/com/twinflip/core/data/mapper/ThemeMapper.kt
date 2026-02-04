@@ -6,6 +6,7 @@ import com.twinflip.core.domain.model.Theme
 fun ThemeEntity.toDomainTheme(): Theme {
     return Theme(
         themeName = this.themeName,
-        images = images.map { it.toDomainCard() }
+        images = this.images.map { it.toDomainCard() },
+        backgroundImage = this.backgroundImage
     )
 }

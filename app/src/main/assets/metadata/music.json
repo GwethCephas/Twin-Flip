@@ -1,5 +1,6 @@
 {
   "themeName": "music",
+  "backgroundImage": "music",
   "images": [
     {"name": "drum", "path": "images/music/drum.svg"},
     {"name": "piano", "path": "images/music/piano.svg"},

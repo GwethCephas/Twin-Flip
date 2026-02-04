@@ -1,5 +1,6 @@
 {
   "themeName": "shapes",
+  "backgroundImage": "shapes",
   "images": [
     {"name": "star", "path": "images/shapes/star.svg"},
     {"name": "heart", "path": "images/shapes/heart.svg"},

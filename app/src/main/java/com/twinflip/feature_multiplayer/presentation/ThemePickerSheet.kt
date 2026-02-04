@@ -133,10 +133,10 @@ fun ThemePickerSheet(
                         ) {
                             items(state.value.themes.size) { index ->
                                 val currentTheme = state.value.themes[index]
-                                MultiplayerThemeItem(
+                                MpThemeItem(
                                     theme = currentTheme,
                                     onThemeClick = {
-                                        onNavigateToMultiplayer(currentTheme.themeName)
+                                        onNavigateToMultiplayer(currentTheme.themeName + "/${currentTheme.backgroundImage}")
                                     }
                                 )
                             }

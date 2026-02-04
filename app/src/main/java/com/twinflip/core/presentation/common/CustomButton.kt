@@ -41,7 +41,7 @@ fun CustomButton(
                     horizontal = 30.dp
                 ),
             text = text,
-            fontSize = 25.sp,
+            fontSize = 20.sp,
             fontWeight = SemiBold,
             color =  MaterialTheme.colorScheme.onPrimary
         )

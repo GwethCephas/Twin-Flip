@@ -1,5 +1,6 @@
 {
   "themeName": "fruits",
+  "backgroundImage": "fruits",
   "images": [
     {"name": "kiwi", "path": "images/fruits/kiwi.svg"},
     {"name": "mango", "path": "images/fruits/mango.svg"},

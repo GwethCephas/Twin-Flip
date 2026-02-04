@@ -1,5 +1,6 @@
 {
   "themeName": "emojis",
+  "backgroundImage": "emojis",
   "images": [
     {"name": "angry", "path": "images/emojis/angry.svg"},
     {"name": "blue", "path": "images/emojis/blue.svg"},

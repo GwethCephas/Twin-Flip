@@ -139,44 +139,65 @@ class MultiplayerViewModel(
                 markAsMatched(first.id)
                 markAsMatched(second.id)
 
-                val newMatched = state.matchedPairs + 1
-                val activePlayerIsOne = state.activePlayerId == state.playerOne?.id.toString()
+                _multiplayerUiState.update { currentState ->
+                    val newMatched = currentState.matchedPairs + 1
+                    val activePlayerIsOne =
+                        currentState.activePlayerId == currentState.playerOne?.id.toString()
 
-                // Update score for the active player and check if the game is finished
-                _multiplayerUiState.update {
-                    it.copy(
+                    val updatedPlayerOne = if (activePlayerIsOne) {
+                        currentState.playerOne?.copy(
+                            matchedPairs = currentState.playerOne.matchedPairs + 1,
+                            score = (currentState.playerOne.score + 2) * 5
+                        )
+                    } else {
+                        currentState.playerOne
+                    }
+
+                    val updatedPlayerTwo = if (!activePlayerIsOne) {
+                        currentState.playerTwo?.copy(
+                            matchedPairs = currentState.playerTwo.matchedPairs + 1,
+                            score = (currentState.playerTwo.score + 2) * 5
+                        )
+                    } else {
+                        currentState.playerTwo
+                    }
+
+                    val isGameFinished = newMatched == (currentState.cards.size / 2)
+                    val winnerId = if (isGameFinished) {
+                        when {
+                            updatedPlayerOne!!.score > updatedPlayerTwo!!.score -> updatedPlayerOne.name
+                            updatedPlayerTwo.score > updatedPlayerOne.score -> updatedPlayerTwo.name
+                            else -> "draw"
+                        }
+                    } else {
+                        currentState.winnerId
+                    }
+
+                    currentState.copy(
                         matchedPairs = newMatched,
-                        playerOne = if (activePlayerIsOne)
-                            it.playerOne?.copy(
-                                matchedPairs = it.playerOne.matchedPairs + 1,
-                                score = (it.playerOne.score + 2) * 5
-                            )
-                        else it.playerOne,
-                        playerTwo = if (!activePlayerIsOne)
-                            it.playerTwo?.copy(
-                                matchedPairs = it.playerTwo.matchedPairs + 1,
-                                score = (it.playerTwo.score + 2) * 5
-                            )
-                        else it.playerTwo,
-                        gamePhase = if (newMatched == (it.cards.size / 2)) GamePhase.Finished else GamePhase.InProgress
+                        playerOne = updatedPlayerOne,
+                        playerTwo = updatedPlayerTwo,
+                        gamePhase = if (isGameFinished) GamePhase.Finished else GamePhase.InProgress,
+                        winnerId = winnerId,
+                        firstSelected = null, // Always reset selected cards
+                        secondSelected = null,
+                        isComparing = false
                     )
                 }
 
             } else {
                 flipCardBack(first.id)
                 flipCardBack(second.id)
-
                 switchTurns()
-            }
 
-            _multiplayerUiState.update {
-                it.copy(
-                    firstSelected = null,
-                    secondSelected = null,
-                    isComparing = false
-                )
+                _multiplayerUiState.update {
+                    it.copy(
+                        firstSelected = null,
+                        secondSelected = null,
+                        isComparing = false
+                    )
+                }
             }
-
         }
     }
 

@@ -1,5 +1,6 @@
 package com.twinflip.core.data.repository
 
+import android.util.Log
 import com.twinflip.core.data.datasource.ThemeProvider
 import com.twinflip.core.data.mapper.toDomainTheme
 import com.twinflip.core.data.persistence.datastore.ThemeDatastore
@@ -13,7 +14,12 @@ class ThemeRepositoryImpl(
 ) : ThemeRepository {
 
     override fun getThemes(): List<Theme> {
-        return themeProvider.getThemes().map { it.toDomainTheme() }
+        return  try {
+            themeProvider.getThemes().map { it.toDomainTheme() }
+        } catch (e: Exception) {
+            Log.e("ThemeRepositoryImpl", "Error getting themes", e)
+            emptyList()
+        }
     }
 
     override suspend fun unlockTheme(themeName: String) {

@@ -1,5 +1,6 @@
 {
   "themeName": "water",
+  "backgroundImage": "water",
   "images": [
     {"name": "crab", "path": "images/water/crab.svg"},
     {"name": "fish", "path": "images/water/fish.svg"},

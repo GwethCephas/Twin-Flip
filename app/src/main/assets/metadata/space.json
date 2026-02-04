@@ -1,5 +1,6 @@
 {
   "themeName": "space",
+  "backgroundImage": "space",
   "images": [
     {"name": "ufo", "path": "images/space/ufo.svg"},
     {"name": "moon", "path": "images/space/moon.svg"},

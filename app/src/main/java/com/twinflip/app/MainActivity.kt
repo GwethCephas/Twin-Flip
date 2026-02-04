@@ -5,11 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.twinflip.feature_singleplayer.presentation.game.GameViewModel
 import com.twinflip.app.navigation.NavGraph
-import com.twinflip.feature_themes.presentation.ThemeViewModel
 import com.twinflip.core.ui.theme.TwinFlipTheme
 import com.twinflip.feature_multiplayer.presentation.MultiplayerViewModel
+import com.twinflip.feature_singleplayer.presentation.game.GameViewModel
+import com.twinflip.feature_themes.presentation.ThemeViewModel
 import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -27,13 +28,13 @@ import com.twinflip.R
 import com.twinflip.feature_multiplayer.model.Player
 
 @Composable
-fun PlayerCardItem(
+fun MpCardItem(
     modifier: Modifier = Modifier,
     player: Player
 ) {
     Card(
         modifier = modifier
-            .width(200.dp)
+            .widthIn(min = 200.dp, max = 220.dp)
             .height(100.dp)
             .padding(horizontal = 5.dp)
     ) {
@@ -51,8 +52,8 @@ fun PlayerCardItem(
         ) {
             Column(
                 modifier = Modifier
-                    .weight(1f)
-                    .padding(10.dp),
+                    .weight(0.5f)
+                    .padding(5.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -78,7 +79,7 @@ fun PlayerCardItem(
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .padding(10.dp),
+                    .padding(5.dp),
                 horizontalAlignment = Alignment.Start,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -106,8 +107,8 @@ fun PlayerCardItem(
 
 @Preview(showBackground = true)
 @Composable
-fun PlayerCardItemPreview() {
-    PlayerCardItem(
+fun MpCardItemPreview() {
+    MpCardItem(
         player = Player(
             name = "Player 1",
             isActive = true

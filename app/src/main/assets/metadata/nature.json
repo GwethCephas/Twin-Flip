@@ -1,5 +1,6 @@
 {
   "themeName": "nature",
+  "backgroundImage": "nature",
   "images": [
     {"name": "sun", "path": "images/nature/sun.svg"},
     {"name": "leaf", "path": "images/nature/leaf.svg"},

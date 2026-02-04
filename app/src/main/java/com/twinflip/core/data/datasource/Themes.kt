@@ -11,8 +11,8 @@ import com.twinflip.core.data.utils.Constants.NATURE
 import com.twinflip.core.data.utils.Constants.SHAPES
 import com.twinflip.core.data.utils.Constants.SPACE
 import com.twinflip.core.data.utils.Constants.SPORTS
-import com.twinflip.core.data.utils.Constants.WATER
 import com.twinflip.core.data.utils.Constants.VEHICLES
+import com.twinflip.core.data.utils.Constants.WATER
 
 object Themes {
     fun animals(context: Context) = ThemeLoader.loadTheme(context, ANIMALS)

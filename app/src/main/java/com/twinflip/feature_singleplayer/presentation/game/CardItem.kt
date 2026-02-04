@@ -43,6 +43,14 @@ fun CardItem(
 
     val context = LocalContext.current
 
+    val imageLoader = remember(context) {
+        ImageLoader.Builder(context)
+            .components {
+                add(SvgDecoder.Factory())
+            }
+            .build()
+    }
+
     val scale = remember { Animatable(1f) }
 
     LaunchedEffect(gameCard.isMatched) {
@@ -100,14 +108,6 @@ fun CardItem(
                     .background(MaterialTheme.colorScheme.background),
             )
         } else {
-
-            val imageLoader = ImageLoader.Builder(context)
-                .components {
-                    add(SvgDecoder.Factory())
-                }
-                .build()
-
-
             Box(
                 modifier = Modifier
                     .fillMaxSize()

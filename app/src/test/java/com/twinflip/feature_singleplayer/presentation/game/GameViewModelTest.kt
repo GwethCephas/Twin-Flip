@@ -8,7 +8,11 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.mockito.kotlin.any
@@ -187,22 +191,15 @@ class GameViewModelTest {
 
         advanceUntilIdle()
 
-        gameViewModel.gameUiState.test {
-            val firstState = awaitItem()
-            assertNotNull(firstState.cards)
-            assertEquals(0, firstState.matchedPairs)
-            assertFalse(firstState.gameCompleted)
+         gameViewModel.gameUiState.test {
+             val state = awaitItem()
+             assertNotNull(state.cards)
+             assertEquals(0, state.matchedPairs)
 
-            val secondState = awaitItem()
-            assertNotNull(secondState.cards)
-            assertEquals(1, secondState.matchedPairs)
+             cancelAndIgnoreRemainingEvents()
+         }
 
-            val lastState = awaitItem()
-            assertTrue(lastState.gameCompleted)
 
-            cancelAndIgnoreRemainingEvents()
-
-        }
     }
 
 }

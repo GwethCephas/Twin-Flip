@@ -1,5 +1,6 @@
 {
   "themeName": "fantasy",
+  "backgroundImage": "fantasy",
   "images": [
     {"name": "alien", "path": "images/fantasy/alien.svg"},
     {"name": "crown", "path": "images/fantasy/crown.svg"},

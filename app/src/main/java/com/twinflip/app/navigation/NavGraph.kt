@@ -1,19 +1,22 @@
 package com.twinflip.app.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.twinflip.feature_singleplayer.presentation.game.GameScreen
-import com.twinflip.feature_singleplayer.presentation.game.GameViewModel
 import com.twinflip.core.presentation.home.HomeScreen
 import com.twinflip.feature_multiplayer.presentation.MultiplayerScreen
 import com.twinflip.feature_multiplayer.presentation.MultiplayerViewModel
+import com.twinflip.feature_singleplayer.presentation.game.GameScreen
+import com.twinflip.feature_singleplayer.presentation.game.GameViewModel
 import com.twinflip.feature_themes.presentation.ThemeScreen
 import com.twinflip.feature_themes.presentation.ThemeViewModel
 
+@SuppressLint("LocalContextResourcesRead", "DiscouragedApi")
 @Composable
 fun NavGraph(
     themeViewModel: ThemeViewModel,
@@ -21,6 +24,7 @@ fun NavGraph(
     multiplayerViewModel: MultiplayerViewModel
 ) {
     val navController = rememberNavController()
+    val context = LocalContext.current
 
     NavHost(
         navController = navController,
@@ -55,17 +59,24 @@ fun NavGraph(
         }
 
         composable(
-            route = NavRoutes.Game.route + "/{themeName}",
+            route = NavRoutes.Game.route + "/{themeName}/{backgroundImage}",
             arguments = listOf(
-                navArgument("themeName") { type = NavType.StringType }
+                navArgument("themeName") { type = NavType.StringType },
+                navArgument("backgroundImage") { type = NavType.StringType }
             )
         ) { backStackEntry ->
 
             val themeName = backStackEntry.arguments?.getString("themeName") ?: ""
+            val backgroundImage = backStackEntry.arguments?.getString("backgroundImage") ?: ""
+
+            val resId = context.resources.getIdentifier(
+                backgroundImage, "drawable", context.packageName
+            )
 
             GameScreen(
                 viewModel = gameViewModel,
                 themeName = themeName,
+                backgroundImage = resId,
                 themeViewModel = themeViewModel,
                 onNavigateBack = {
                     navController.popBackStack()
@@ -75,17 +86,24 @@ fun NavGraph(
         }
 
         composable(
-            route = NavRoutes.Multiplayer.route + "/{themeName}",
+            route = NavRoutes.Multiplayer.route + "/{themeName}/{backgroundImage}",
             arguments = listOf(
-                navArgument("themeName") { type = NavType.StringType }
+                navArgument("themeName") { type = NavType.StringType },
+                navArgument("backgroundImage") { type = NavType.StringType }
             )
         ) { backStackEntry ->
 
             val themeName = backStackEntry.arguments?.getString("themeName") ?: ""
+            val backgroundImage = backStackEntry.arguments?.getString("backgroundImage") ?: ""
+
+            val resId = context.resources.getIdentifier(
+                backgroundImage, "drawable", context.packageName
+            )
 
             MultiplayerScreen(
                 multiplayerViewModel = multiplayerViewModel,
-                themeName = themeName
+                themeName = themeName,
+                backgroundImage = resId
             )
         }
 

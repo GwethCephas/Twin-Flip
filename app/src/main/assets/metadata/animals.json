@@ -1,5 +1,6 @@
 {
   "themeName": "animals",
+  "backgroundImage": "animals",
   "images": [
     {"name": "cat", "path": "images/animals/cat.svg"},
     {"name": "dog", "path": "images/animals/dog.svg"},
