@@ -37,12 +37,14 @@ class MultiplayerViewModel(
                         cards = shuffledCards,
                         playerOne = playerOne,
                         playerTwo = playerTwo,
-                        activePlayerId = playerOne.id.toString(), // Correctly set initial active player
+                        activePlayerId = playerOne.id.toString(),
                         turnNumber = 1,
                         isComparing = false,
                         firstSelected = null,
                         secondSelected = null,
-                        gamePhase = GamePhase.Idle
+                        gamePhase = GamePhase.Idle,
+                        winnerId = "",
+                        matchedPairs = 0
                     )
                 }
             }
@@ -63,23 +65,6 @@ class MultiplayerViewModel(
                 gamePhase = GamePhase.InProgress
             )
         }
-    }
-
-    fun finishGame(winnerId: String) {
-        _multiplayerUiState.update {
-            it.copy(
-                gamePhase = GamePhase.Finished,
-                activePlayerId = null,
-                turnNumber = 0,
-                playerOne = null,
-                playerTwo = null,
-                winnerId = winnerId,
-                isComparing = false,
-                firstSelected = null,
-                secondSelected = null
-            )
-        }
-
     }
 
     fun switchTurns() {
@@ -179,7 +164,7 @@ class MultiplayerViewModel(
                         playerTwo = updatedPlayerTwo,
                         gamePhase = if (isGameFinished) GamePhase.Finished else GamePhase.InProgress,
                         winnerId = winnerId,
-                        firstSelected = null, // Always reset selected cards
+                        firstSelected = null,
                         secondSelected = null,
                         isComparing = false
                     )

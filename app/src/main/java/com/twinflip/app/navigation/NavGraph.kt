@@ -103,7 +103,12 @@ fun NavGraph(
             MultiplayerScreen(
                 multiplayerViewModel = multiplayerViewModel,
                 themeName = themeName,
-                backgroundImage = resId
+                backgroundImage = resId,
+                onNavigateToHomeScreen = {
+                    navController.navigate(NavRoutes.Home.route) {
+                        launchSingleTop = true
+                    }
+                }
             )
         }
 

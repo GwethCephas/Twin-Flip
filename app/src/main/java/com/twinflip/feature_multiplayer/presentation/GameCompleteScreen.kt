@@ -30,7 +30,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -40,7 +39,6 @@ import com.twinflip.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun GameCompleteScreen(
-    modifier: Modifier = Modifier,
     state: MultiplayerUiState,
     isVisible: Boolean,
     onDismissRequest: () -> Unit = {},
@@ -73,7 +71,7 @@ fun GameCompleteScreen(
         ) {
             Box(
                 modifier = Modifier
-                    .background(Color.White),
+                    .background(MaterialTheme.colorScheme.onPrimary),
                 contentAlignment = Alignment.Center
             ) {
                 Column(
@@ -89,9 +87,11 @@ fun GameCompleteScreen(
                     )
 
                     Text(
-                        text = "${state.winnerId} won!",
+                        text = if (state.playerOne?.score == state.playerTwo?.score) "Draw !"
+                        else "${state.winnerId} won!",
                         style = MaterialTheme.typography.titleLarge,
-                        color =  Color.Black,
+                        color = MaterialTheme.colorScheme.onBackground,
+                        fontWeight = FontWeight.SemiBold
                     )
                     Column(
                         modifier = Modifier.fillMaxWidth(),
@@ -101,12 +101,12 @@ fun GameCompleteScreen(
                         Text(
                             text = "Player 1 -----  ${state.playerOne?.score}",
                             style = MaterialTheme.typography.titleLarge,
-                            color = Color.Black
+                            color = MaterialTheme.colorScheme.onBackground
                         )
                         Text(
                             text = "Player 2 -----  ${state.playerTwo?.score}",
                             style = MaterialTheme.typography.titleLarge,
-                            color = Color.Black
+                            color = MaterialTheme.colorScheme.onBackground
                         )
                     }
                     Row(

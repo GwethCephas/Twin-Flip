@@ -36,7 +36,8 @@ fun MultiplayerScreen(
     modifier: Modifier = Modifier,
     multiplayerViewModel: MultiplayerViewModel,
     themeName: String,
-    backgroundImage: Int
+    backgroundImage: Int,
+    onNavigateToHomeScreen: () -> Unit
 ) {
 
     val context = LocalContext.current
@@ -51,6 +52,7 @@ fun MultiplayerScreen(
         delay(300)
         multiplayerViewModel.startGame()
     }
+
 
     Box(
         modifier = modifier
@@ -79,11 +81,9 @@ fun MultiplayerScreen(
                 }
 
                 GamePhase.Finished -> {
-
                     isVisible = !isVisible
 
                     GameCompleteScreen(
-                        modifier = modifier,
                         state = state,
                         isVisible = isVisible,
                         onDismissRequest = {
@@ -93,10 +93,9 @@ fun MultiplayerScreen(
 
                         },
                         onNavigateToHomeScreen = {
-
+                            onNavigateToHomeScreen()
                         }
                     )
-                    multiplayerViewModel.finishGame(state.winnerId)
 
                 }
 
@@ -140,5 +139,4 @@ fun MultiplayerScreen(
 
         }
     }
-
 }
