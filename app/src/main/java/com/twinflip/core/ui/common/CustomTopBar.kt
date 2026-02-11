@@ -1,4 +1,4 @@
-package com.twinflip.core.presentation.common
+package com.twinflip.core.ui.common
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -38,7 +38,7 @@ fun CustomTopBar(
                 text = title,
                 fontSize = MaterialTheme.typography.headlineMedium.fontSize,
                 fontWeight = SemiBold,
-                color = MaterialTheme.colorScheme.onPrimary
+                color = MaterialTheme.colorScheme.surface
             )
         },
         navigationIcon = {
@@ -55,7 +55,7 @@ fun CustomTopBar(
                     modifier = Modifier.size(24.dp),
                     painter = painterResource(id = R.drawable.outline_arrow_back_24),
                     contentDescription = "Back",
-                    tint =  MaterialTheme.colorScheme.onPrimary
+                    tint =  MaterialTheme.colorScheme.surface
                 )
             }
 

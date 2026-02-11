@@ -28,6 +28,10 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.twinflip.R
+import com.twinflip.core.audio.GameSound
+import com.twinflip.core.audio.MusicManager
+import com.twinflip.core.audio.SoundManager
 import kotlinx.coroutines.delay
 
 @SuppressLint("ConfigurationScreenWidthHeight")
@@ -37,10 +41,17 @@ fun MultiplayerScreen(
     multiplayerViewModel: MultiplayerViewModel,
     themeName: String,
     backgroundImage: Int,
-    onNavigateToHomeScreen: () -> Unit
+    onNavigateToHomeScreen: () -> Unit,
+    soundManager: SoundManager,
+    musicManager: MusicManager
 ) {
 
+    LaunchedEffect(Unit) {
+        musicManager.play(R.raw.sfx_kids_guitar, volume = 0.3f)
+    }
+
     val context = LocalContext.current
+
 
     val state by multiplayerViewModel.multiplayerUiState.collectAsStateWithLifecycle()
     val cardSize = (LocalConfiguration.current.screenWidthDp - 20) / 4
@@ -83,10 +94,16 @@ fun MultiplayerScreen(
                 GamePhase.Finished -> {
                     isVisible = !isVisible
 
+                    LaunchedEffect(Unit) {
+                        soundManager.playSound(GameSound.LEVEL_COMPLETE)
+                    }
+                    musicManager.stopMusic()
+
                     GameCompleteScreen(
                         state = state,
                         isVisible = isVisible,
                         onDismissRequest = {
+                            musicManager.play(R.raw.sfx_kids_guitar, volume = 0.3f)
                             isVisible = false
                             multiplayerViewModel.loadGame(themeName)
                             multiplayerViewModel.startGame()
@@ -94,7 +111,8 @@ fun MultiplayerScreen(
                         },
                         onNavigateToHomeScreen = {
                             onNavigateToHomeScreen()
-                        }
+                        },
+                        soundManager = soundManager
                     )
 
                 }
@@ -117,7 +135,8 @@ fun MultiplayerScreen(
                     GameInProgress(
                         state = state,
                         multiplayerViewModel = multiplayerViewModel,
-                        cardSize = cardSize
+                        cardSize = cardSize,
+                        soundManager = soundManager
                     )
                 }
 

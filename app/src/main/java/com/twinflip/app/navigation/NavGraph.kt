@@ -8,7 +8,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.twinflip.core.presentation.home.HomeScreen
+import com.twinflip.core.audio.MusicManager
+import com.twinflip.core.audio.SoundManager
+import com.twinflip.feature_home.HomeScreen
 import com.twinflip.feature_multiplayer.presentation.MultiplayerScreen
 import com.twinflip.feature_multiplayer.presentation.MultiplayerViewModel
 import com.twinflip.feature_singleplayer.presentation.game.GameScreen
@@ -21,7 +23,9 @@ import com.twinflip.feature_themes.presentation.ThemeViewModel
 fun NavGraph(
     themeViewModel: ThemeViewModel,
     gameViewModel: GameViewModel,
-    multiplayerViewModel: MultiplayerViewModel
+    multiplayerViewModel: MultiplayerViewModel,
+    soundManager: SoundManager,
+    musicManager: MusicManager
 ) {
     val navController = rememberNavController()
     val context = LocalContext.current
@@ -40,7 +44,9 @@ fun NavGraph(
                         launchSingleTop = true
                     }
                 },
-                themeViewModel = themeViewModel
+                themeViewModel = themeViewModel,
+                soundManager = soundManager,
+                musicManager = musicManager
             )
         }
 
@@ -54,7 +60,9 @@ fun NavGraph(
                 },
                 onNavigateToHome = {
                     navController.navigate(NavRoutes.Home.route)
-                }
+                },
+                soundManager = soundManager,
+                musicManager = musicManager
             )
         }
 
@@ -80,7 +88,9 @@ fun NavGraph(
                 themeViewModel = themeViewModel,
                 onNavigateBack = {
                     navController.popBackStack()
-                }
+                },
+                soundManager = soundManager,
+                musicManager = musicManager
             )
 
         }
@@ -108,7 +118,9 @@ fun NavGraph(
                     navController.navigate(NavRoutes.Home.route) {
                         launchSingleTop = true
                     }
-                }
+                },
+                soundManager = soundManager,
+                musicManager = musicManager
             )
         }
 

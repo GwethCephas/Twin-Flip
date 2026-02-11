@@ -32,9 +32,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.twinflip.R
+import com.twinflip.core.audio.GameSound
+import com.twinflip.core.audio.SoundManager
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -42,7 +43,8 @@ fun GameCompleteScreen(
     state: MultiplayerUiState,
     isVisible: Boolean,
     onDismissRequest: () -> Unit = {},
-    onNavigateToHomeScreen: () -> Unit = {}
+    onNavigateToHomeScreen: () -> Unit = {},
+    soundManager: SoundManager
 ) {
 
     AnimatedVisibility(
@@ -116,6 +118,7 @@ fun GameCompleteScreen(
                     ) {
                         Button(
                             onClick = {
+                                soundManager.playSound(GameSound.BUTTON_TAP)
                                 onNavigateToHomeScreen()
                             },
                             colors = ButtonDefaults.buttonColors(
@@ -134,6 +137,7 @@ fun GameCompleteScreen(
                         Spacer(modifier = Modifier.width(10.dp))
                         Button(
                             onClick = {
+                                soundManager.playSound(GameSound.BUTTON_TAP)
                                 onDismissRequest()
                             },
                             colors = ButtonDefaults.buttonColors(
@@ -161,13 +165,3 @@ fun GameCompleteScreen(
 
 }
 
-@Preview(showBackground = true)
-@Composable
-fun GameCompleteScreenPreview() {
-    GameCompleteScreen(
-        state = MultiplayerUiState(
-            winnerId = "Player 1"
-        ),
-        isVisible = true
-    )
-}

@@ -13,13 +13,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.twinflip.core.audio.SoundManager
 import com.twinflip.feature_singleplayer.presentation.game.CardItem
 
 @Composable
 fun GameInProgress(
     state: MultiplayerUiState,
     multiplayerViewModel: MultiplayerViewModel,
-    cardSize: Int
+    cardSize: Int,
+    soundManager: SoundManager
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -58,7 +60,8 @@ fun GameInProgress(
                     onCardClick = {
                         multiplayerViewModel.cardClicked(card)
                     },
-                    cardSize = cardSize.dp
+                    cardSize = cardSize.dp,
+                    soundManager = soundManager
                 )
             }
 

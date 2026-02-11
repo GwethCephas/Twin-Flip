@@ -31,6 +31,8 @@ import coil.ImageLoader
 import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
+import com.twinflip.core.audio.GameSound
+import com.twinflip.core.audio.SoundManager
 import com.twinflip.core.domain.game.GameCard
 
 @Composable
@@ -38,7 +40,8 @@ fun CardItem(
     modifier: Modifier = Modifier,
     gameCard: GameCard,
     onCardClick: () -> Unit,
-    cardSize: Dp
+    cardSize: Dp,
+    soundManager: SoundManager
 ) {
 
     val context = LocalContext.current
@@ -55,6 +58,7 @@ fun CardItem(
 
     LaunchedEffect(gameCard.isMatched) {
         if (gameCard.isMatched) {
+            soundManager.playSound(GameSound.MATCH_SUCCESS)
             scale.animateTo(
                 targetValue = 1.2f,
                 animationSpec = spring(

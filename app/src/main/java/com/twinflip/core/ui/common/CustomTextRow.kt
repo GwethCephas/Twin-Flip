@@ -1,4 +1,4 @@
-package com.twinflip.core.presentation.common
+package com.twinflip.core.ui.common
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

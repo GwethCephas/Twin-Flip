@@ -31,12 +31,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.twinflip.core.presentation.common.CustomTopBar
+import com.twinflip.R
+import com.twinflip.core.audio.GameSound
+import com.twinflip.core.audio.MusicManager
+import com.twinflip.core.audio.SoundManager
+import com.twinflip.core.ui.common.CustomTopBar
 
 @SuppressLint("ConfigurationScreenWidthHeight")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,12 +50,17 @@ fun ThemeScreen(
     modifier: Modifier = Modifier,
     themeViewModel: ThemeViewModel,
     onNavigateToGame: (String) -> Unit,
-    onNavigateToHome: () -> Unit
+    onNavigateToHome: () -> Unit,
+    soundManager: SoundManager,
+    musicManager: MusicManager
 ) {
     val state by themeViewModel.themeUiState.collectAsState()
 
     val outerPadding = 20.dp
 
+    LaunchedEffect(Unit) {
+        musicManager.play(R.raw.sfx_kids_guitar, volume = 0.3f)
+    }
 
 
     Column(
@@ -127,6 +137,7 @@ fun ThemeScreen(
                                 ThemeItem(
                                     theme = theme,
                                     onThemeClick = {
+                                        soundManager.playSound(GameSound.BUTTON_TAP)
                                         onNavigateToGame(theme.themeName + "/${theme.backgroundImage}")
                                     }
                                 )

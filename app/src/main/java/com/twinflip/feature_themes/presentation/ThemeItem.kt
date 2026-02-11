@@ -18,13 +18,14 @@ import coil.ImageLoader
 import coil.compose.AsyncImage
 import coil.decode.SvgDecoder
 import com.twinflip.R
+import com.twinflip.core.audio.SoundManager
 import com.twinflip.core.domain.model.Theme
 
 @Composable
 fun ThemeItem(
     modifier: Modifier = Modifier,
     theme: Theme,
-    onThemeClick: () -> Unit
+    onThemeClick: () -> Unit,
 ) {
     val context = LocalContext.current
 

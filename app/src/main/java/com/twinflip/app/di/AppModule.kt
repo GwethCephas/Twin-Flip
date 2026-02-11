@@ -1,5 +1,7 @@
 package com.twinflip.app.di
 
+import com.twinflip.core.audio.MusicManager
+import com.twinflip.core.audio.SoundManager
 import com.twinflip.core.data.datasource.ThemeProvider
 import com.twinflip.core.data.persistence.datastore.ThemeDatastore
 import com.twinflip.core.data.repository.CardRepositoryImpl
@@ -17,6 +19,10 @@ import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 val appModule = module {
+
+    single { SoundManager(androidContext()) }
+
+    single { MusicManager(androidContext()) }
 
     single { ThemeProvider(androidContext()) }
 

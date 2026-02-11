@@ -6,10 +6,11 @@
     {"name": "heart", "path": "images/shapes/heart.svg"},
     {"name": "diamond", "path": "images/shapes/diamond.svg"},
     {"name": "triangle", "path": "images/shapes/triangle.svg"},
-    {"name": "red-circle", "path": "images/shapes/red-circle.svg"},
-    {"name": "blue-square", "path": "images/shapes/blue-square.svg"},
-    {"name": "gold_spiral", "path": "images/shapes/gold_spiral.svg"},
-    {"name": "brown_crescent", "path": "images/shapes/brown_crescent.svg"},
-    {"name": "green_triangle", "path": "images/shapes/green_triangle.svg"}
+    {"name": "red-circle", "path": "images/shapes/circle.svg"},
+    {"name": "blue-square", "path": "images/shapes/square.svg"},
+    {"name": "gold_spiral", "path": "images/shapes/prism.svg"},
+    {"name": "brown_crescent", "path": "images/shapes/crescent.svg"},
+    {"name": "green_triangle", "path": "images/shapes/hexagon.svg"},
+    {"name": "purple_triangle", "path": "images/shapes/oval.svg"}
   ]
 }

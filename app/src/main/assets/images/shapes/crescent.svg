@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" height="160" width="160">
+  <defs>
+    <clipPath id="crescent-clip">
+      <circle r="70" cy="80" cx="80"></circle>
+    </clipPath>
+  </defs>
+  
+  
+  <circle clip-path="url(#crescent-clip)" fill="#c9a0ff" r="70" cy="80" cx="80"></circle>
+  
+  
+  <circle stroke="none" fill="none" r="70" cy="80" cx="110"></circle>
+  <circle clip-path="url(#crescent-clip)" fill="black" r="70" cy="80" cx="110"></circle>
+</svg>

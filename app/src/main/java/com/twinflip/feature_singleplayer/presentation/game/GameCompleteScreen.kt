@@ -17,11 +17,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight.Companion.SemiBold
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.twinflip.R
-import com.twinflip.core.presentation.common.CustomButton
-import com.twinflip.core.presentation.common.CustomTextRow
+import com.twinflip.core.audio.SoundManager
+import com.twinflip.core.ui.common.CustomButton
+import com.twinflip.core.ui.common.CustomTextRow
 
 @Composable
 fun GameCompleteScreen(
@@ -30,7 +30,8 @@ fun GameCompleteScreen(
     moves: Int,
     score: Int,
     onNavigateToThemeScreen: () -> Unit,
-    onPlayAgainClick: () -> Unit
+    onPlayAgainClick: () -> Unit,
+    soundManager: SoundManager
 ) {
 
     Column(
@@ -78,7 +79,8 @@ fun GameCompleteScreen(
             onClick = {
                 onPlayAgainClick()
             },
-            color = MaterialTheme.colorScheme.tertiary
+            color = MaterialTheme.colorScheme.tertiary,
+            soundManager = soundManager
         )
 
         Spacer(modifier = Modifier.height(10.dp))
@@ -89,22 +91,11 @@ fun GameCompleteScreen(
             onClick = {
                 onNavigateToThemeScreen()
             },
-            color = MaterialTheme.colorScheme.secondary
+            color = MaterialTheme.colorScheme.secondary,
+            soundManager = soundManager
         )
 
 
     }
 
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GameCompleteScreenPreview() {
-    GameCompleteScreen(
-        time = "00.46",
-        moves = 20,
-        score = 800,
-        onNavigateToThemeScreen = {},
-        onPlayAgainClick = {}
-    )
 }

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" height="160" width="160">
+  <defs>
+    <linearGradient y2="100%" x2="100%" y1="0%" x1="0%" id="prismGrad">
+      <stop stop-color="#00d4ff" offset="0%"></stop>
+      <stop stop-color="#0088cc" offset="100%"></stop>
+    </linearGradient>
+  </defs>
+  
+  
+  <polygon opacity="0.7" fill="#006699" points="40,50 100,30 100,90 40,110"></polygon>
+  
+  
+  <polygon fill="url(#prismGrad)" points="40,50 100,30 120,50 60,70"></polygon>
+  <polygon fill="url(#prismGrad)" points="40,110 100,90 120,110 60,130"></polygon>
+  
+  
+  <polygon opacity="0.9" fill="#00b7eb" points="60,70 120,50 120,110 60,130"></polygon>
+  <polygon opacity="0.85" fill="#00d4ff" points="40,50 100,30 120,50 60,70"></polygon>
+  
+  
+  <polyline opacity="0.8" stroke-width="2" stroke="#004466" fill="none" points="40,50 100,30 120,50 120,110 100,90 40,110 40,50"></polyline>
+  <line opacity="0.6" stroke-width="1.5" stroke="#004466" y2="90" x2="100" y1="70" x1="60"></line>
+</svg>

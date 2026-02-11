@@ -1,4 +1,4 @@
-package com.twinflip.core.presentation.home
+package com.twinflip.feature_home
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -21,7 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.twinflip.R
-import com.twinflip.core.presentation.common.CustomButton
+import com.twinflip.core.audio.GameSound
+import com.twinflip.core.audio.MusicManager
+import com.twinflip.core.audio.SoundManager
+import com.twinflip.core.ui.common.CustomButton
 import com.twinflip.feature_multiplayer.presentation.ThemePickerSheet
 import com.twinflip.feature_themes.presentation.ThemeViewModel
 import kotlinx.coroutines.launch
@@ -32,11 +36,17 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     onNavigateToThemeScreen: () -> Unit,
     onNavigateToMultiPlayerScreen: (String) -> Unit,
-    themeViewModel: ThemeViewModel
+    themeViewModel: ThemeViewModel,
+    soundManager: SoundManager,
+    musicManager: MusicManager
 ) {
 
     var isThemePickerVisible by remember { mutableStateOf(false) }
     val scope = rememberCoroutineScope()
+
+    LaunchedEffect(Unit) {
+        musicManager.play(R.raw.sfx_kids_guitar, volume = 0.3f)
+    }
 
     Box(
         modifier = modifier.fillMaxSize()
@@ -57,7 +67,8 @@ fun HomeScreen(
                 color = MaterialTheme.colorScheme.primary,
                 onClick = {
                     onNavigateToThemeScreen()
-                }
+                },
+                soundManager = soundManager
             )
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -66,7 +77,8 @@ fun HomeScreen(
                 color = MaterialTheme.colorScheme.secondary,
                 onClick = {
                     isThemePickerVisible = true
-                }
+                },
+                soundManager = soundManager
             )
         }
         ThemePickerSheet(
@@ -74,6 +86,7 @@ fun HomeScreen(
             isVisible = isThemePickerVisible,
             onDismissRequest = { isThemePickerVisible = false },
             onNavigateToMultiplayer = { themeName ->
+                soundManager.playSound(GameSound.BUTTON_TAP)
                 scope.launch {
                     isThemePickerVisible = false
                     onNavigateToMultiPlayerScreen(themeName)

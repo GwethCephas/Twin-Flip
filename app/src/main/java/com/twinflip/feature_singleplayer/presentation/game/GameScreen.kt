@@ -43,7 +43,10 @@ import androidx.compose.ui.text.font.FontWeight.Companion.SemiBold
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.twinflip.R
-import com.twinflip.core.presentation.common.calculateScore
+import com.twinflip.core.audio.GameSound
+import com.twinflip.core.audio.MusicManager
+import com.twinflip.core.audio.SoundManager
+import com.twinflip.core.ui.common.calculateScore
 import com.twinflip.feature_themes.presentation.ThemeViewModel
 
 
@@ -56,21 +59,26 @@ fun GameScreen(
     themeName: String,
     backgroundImage: Int,
     themeViewModel: ThemeViewModel,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    soundManager: SoundManager,
+    musicManager: MusicManager
 ) {
-
-    val state by viewModel.gameUiState.collectAsState()
-    val cardSize = (LocalConfiguration.current.screenWidthDp - 20) / 4
-
     LaunchedEffect(themeName) {
         viewModel.loadGames(themeName)
     }
 
+    LaunchedEffect(Unit) {
+        musicManager.play(R.raw.sfx_kids_guitar, volume = 0.3f)
+    }
     DisposableEffect(Unit) {
         onDispose {
             viewModel.stopTimer()
         }
     }
+
+    val state by viewModel.gameUiState.collectAsState()
+    val cardSize = (LocalConfiguration.current.screenWidthDp - 20) / 4
+
 
     LaunchedEffect(state.gameCompleted) {
         if (state.gameCompleted) {
@@ -89,9 +97,8 @@ fun GameScreen(
 
         Column(
             modifier = modifier
-                .fillMaxSize()
-//                .background(MaterialTheme.colorScheme.tertiary),
-            ,horizontalAlignment = Alignment.CenterHorizontally,
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Top
         ) {
 
@@ -105,14 +112,21 @@ fun GameScreen(
                     parseTimeToSeconds(currentElapsedTime)
                 )
 
+                LaunchedEffect(Unit) {
+                    soundManager.playSound(GameSound.LEVEL_COMPLETE)
+                }
+                musicManager.stopMusic()
+
                 GameCompleteScreen(
                     time = currentElapsedTime,
                     moves = state.moves,
                     score = currentScore,
                     onNavigateToThemeScreen = onNavigateBack,
                     onPlayAgainClick = {
+                        musicManager.play(R.raw.sfx_kids_guitar, volume = 0.3f)
                         viewModel.loadGames(themeName)
-                    }
+                    },
+                    soundManager = soundManager
                 )
 
             } else {
@@ -126,7 +140,7 @@ fun GameScreen(
                             text = themeName,
                             fontSize = MaterialTheme.typography.headlineMedium.fontSize,
                             fontWeight = SemiBold,
-                            color = MaterialTheme.colorScheme.onPrimary
+                            color = MaterialTheme.colorScheme.surface
                         )
                     },
                     navigationIcon = {
@@ -143,7 +157,7 @@ fun GameScreen(
                                 modifier = Modifier.size(24.dp),
                                 painter = painterResource(id = R.drawable.outline_arrow_back_24),
                                 contentDescription = "Back",
-                                tint = MaterialTheme.colorScheme.onPrimary
+                                tint = MaterialTheme.colorScheme.surface
                             )
                         }
 
@@ -162,7 +176,7 @@ fun GameScreen(
                                 text = state.time,
                                 fontSize = 15.sp,
                                 fontWeight = SemiBold,
-                                color = MaterialTheme.colorScheme.onPrimary
+                                color = MaterialTheme.colorScheme.surface
                             )
                         }
                     }
@@ -184,7 +198,8 @@ fun GameScreen(
                             onCardClick = {
                                 viewModel.cardClicked(card)
                             },
-                            cardSize = cardSize.dp
+                            cardSize = cardSize.dp,
+                            soundManager = soundManager
                         )
                     }
 
@@ -203,7 +218,7 @@ fun GameScreen(
                         text = "Matched pairs ${state.matchedPairs} |  Moves ${state.moves}",
                         fontSize = 16.sp,
                         fontWeight = SemiBold,
-                        color = MaterialTheme.colorScheme.onPrimary
+                        color = MaterialTheme.colorScheme.surface
                     )
                 }
 

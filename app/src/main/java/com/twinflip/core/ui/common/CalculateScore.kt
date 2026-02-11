@@ -1,4 +1,4 @@
-package com.twinflip.core.presentation.common
+package com.twinflip.core.ui.common
 
 
 fun calculateScore(

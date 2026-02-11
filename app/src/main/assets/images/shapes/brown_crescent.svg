@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="1024" height="1024" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Brown crescent on white background">
-  <rect width="100%" height="100%" fill="#ffffff"/>
-  <!-- Larger circle -->
-  <circle cx="512" cy="512" r="300" fill="#8B4513"/>
-  <!-- Overlapping circle to create crescent cutout -->
-  <circle cx="640" cy="420" r="300" fill="#ffffff"/>
-</svg>
