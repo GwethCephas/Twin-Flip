@@ -99,7 +99,7 @@ fun MultiplayerScreen(
                     }
                     musicManager.stopMusic()
 
-                    GameCompleteScreen(
+                    MpCompleteScreen(
                         state = state,
                         isVisible = isVisible,
                         onDismissRequest = {

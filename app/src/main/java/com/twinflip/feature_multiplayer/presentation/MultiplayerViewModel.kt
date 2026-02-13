@@ -130,18 +130,20 @@ class MultiplayerViewModel(
                         currentState.activePlayerId == currentState.playerOne?.id.toString()
 
                     val updatedPlayerOne = if (activePlayerIsOne) {
+                        val newPairs = currentState.playerOne?.matchedPairs?.plus(1) ?: 0
                         currentState.playerOne?.copy(
-                            matchedPairs = currentState.playerOne.matchedPairs + 1,
-                            score = (currentState.playerOne.score + 2) * 5
+                            matchedPairs = newPairs,
+                            score = ((newPairs.toDouble() / (currentState.cards.size / 2).toDouble()) * 1000).toInt()
                         )
                     } else {
                         currentState.playerOne
                     }
 
                     val updatedPlayerTwo = if (!activePlayerIsOne) {
+                        val newPairs = currentState.playerTwo?.matchedPairs?.plus(1) ?: 0
                         currentState.playerTwo?.copy(
-                            matchedPairs = currentState.playerTwo.matchedPairs + 1,
-                            score = (currentState.playerTwo.score + 2) * 5
+                            matchedPairs = newPairs,
+                            score = ((newPairs.toDouble() / (currentState.cards.size / 2).toDouble()) * 1000).toInt()
                         )
                     } else {
                         currentState.playerTwo

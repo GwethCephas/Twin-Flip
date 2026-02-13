@@ -117,7 +117,7 @@ fun GameScreen(
                 }
                 musicManager.stopMusic()
 
-                GameCompleteScreen(
+                SpCompleteScreen(
                     time = currentElapsedTime,
                     moves = state.moves,
                     score = currentScore,
