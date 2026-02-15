@@ -55,19 +55,19 @@ Available themes:
 
 ---
 <p align="center">
-  <img src="./screenshots/home_screen_light.jpeg" alt="Home Screen Light Mode"/>
-  <img src="./screenshots/home_screen_dark.jpeg" alt="Home Screen Dark Mode"/>
-  <img src="./screenshots/singleplayer_gameplay.jpeg" alt="Singleplayer Gameplay"/>
-  <img src="./screenshots/singleplayer_gamecomplete.jpeg" alt="Singleplayer Game Complete"/>
+  <img src="./screenshots/home_screen_light.jpeg" width="23%" alt="Home Screen Light Mode"/>
+  <img src="./screenshots/home_screen_dark.jpeg" width="23%" alt="Home Screen Dark Mode"/>
+  <img src="./screenshots/singleplayer_gameplay.jpeg" width="23%" alt="Singleplayer Gameplay"/>
+  <img src="./screenshots/singleplayer_gamecomplete.jpeg" width="23%" alt="Singleplayer Game Complete"/>
 </p>
 
 <br/>
 
 <p align="center">
-  <img src="./screenshots/theme_screen.jpeg" alt="Theme Screen"/>
-  <img src="./screenshots/multiplayer_gameplay.jpeg" alt="Multiplayer Gameplay"/>
-  <img src="./screenshots/multiplayer_gameplay_dark.jpeg" alt="Multiplayer Gameplay Dark"/>
-  <img src="./screenshots/multiplayer_gamecomplete.jpeg" alt="Multiplayer Game Complete"/>
+  <img src="./screenshots/theme_screen.jpeg" width="23%" alt="Theme Screen"/>
+  <img src="./screenshots/multiplayer_gameplay.jpeg" width="23%" alt="Multiplayer Gameplay"/>
+  <img src="./screenshots/multiplayer_gameplay_dark.jpeg" width="23%" alt="Multiplayer Gameplay Dark"/>
+  <img src="./screenshots/multiplayer_gamecomplete.jpeg" width="23%" alt="Multiplayer Game Complete"/>
 </p>
 
 ---
