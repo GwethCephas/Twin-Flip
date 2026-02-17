@@ -59,7 +59,11 @@ fun NavGraph(
                     }
                 },
                 onNavigateToHome = {
-                    navController.navigate(NavRoutes.Home.route)
+                    navController.navigate(NavRoutes.Home.route) {
+                        popUpTo(NavRoutes.Home.route) {
+                            inclusive = true
+                        }
+                    }
                 },
                 soundManager = soundManager,
                 musicManager = musicManager
