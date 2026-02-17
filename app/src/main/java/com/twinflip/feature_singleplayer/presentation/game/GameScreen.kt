@@ -111,11 +111,12 @@ fun GameScreen(
                     state.moves,
                     parseTimeToSeconds(currentElapsedTime)
                 )
+                musicManager.stopMusic()
 
                 LaunchedEffect(Unit) {
                     soundManager.playSound(GameSound.LEVEL_COMPLETE)
                 }
-                musicManager.stopMusic()
+
 
                 SpCompleteScreen(
                     time = currentElapsedTime,
