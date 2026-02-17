@@ -1,13 +1,6 @@
 package com.twinflip.feature_themes.presentation
 
 import android.annotation.SuppressLint
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.Spring
-import androidx.compose.animation.core.spring
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.slideInVertically
-import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -89,64 +82,50 @@ fun ThemeScreen(
             }
         } else {
 
-            AnimatedVisibility(
-                visible = true,
-                enter = slideInVertically(
-                    animationSpec = spring(
-                        dampingRatio = Spring.DampingRatioLowBouncy,
-                        stiffness = Spring.StiffnessMedium
-                    ),
-                    initialOffsetY = { it }
-                ) + fadeIn(animationSpec = tween(300)),
-                exit = slideOutVertically(
-                    animationSpec = tween(300),
-                    targetOffsetY = { it }
-                )
+            Surface(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 20.dp)
+                    .wrapContentHeight(),
+                shape = RoundedCornerShape(24.dp),
             ) {
-                Surface(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 20.dp)
-                        .wrapContentHeight(),
-                    shape = RoundedCornerShape(24.dp),
+                Column(
+                    modifier = Modifier.background(MaterialTheme.colorScheme.background),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Column(
-                        modifier = Modifier.background(MaterialTheme.colorScheme.background),
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Text(
-                            modifier = Modifier.padding(top = 10.dp),
-                            text = "Choose a Theme",
-                            style = MaterialTheme.typography.titleLarge
-                        )
+                    Text(
+                        modifier = Modifier.padding(top = 10.dp),
+                        text = "Choose a Theme",
+                        style = MaterialTheme.typography.titleLarge
+                    )
 
-                        LazyVerticalGrid(
-                            columns = GridCells.Fixed(3),
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(vertical = 10.dp),
-                            contentPadding = PaddingValues(
-                                horizontal = 10.dp,
-                                vertical = 5.dp
-                            ),
-                            horizontalArrangement = Arrangement.spacedBy(16.dp),
-                            verticalArrangement = Arrangement.spacedBy(16.dp)
-                        ) {
-                            items(state.themes.size) { index ->
-                                val theme = state.themes[index]
-                                ThemeItem(
-                                    theme = theme,
-                                    onThemeClick = {
-                                        soundManager.playSound(GameSound.BUTTON_TAP)
-                                        onNavigateToGame(theme.themeName + "/${theme.backgroundImage}")
-                                    }
-                                )
-                            }
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(3),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 10.dp),
+                        contentPadding = PaddingValues(
+                            horizontal = 10.dp,
+                            vertical = 5.dp
+                        ),
+                        horizontalArrangement = Arrangement.spacedBy(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        items(state.themes.size) { index ->
+                            val theme = state.themes[index]
+                            ThemeItem(
+                                theme = theme,
+                                onThemeClick = {
+                                    soundManager.playSound(GameSound.BUTTON_TAP)
+                                    onNavigateToGame(theme.themeName + "/${theme.backgroundImage}")
+                                }
+                            )
                         }
                     }
                 }
             }
         }
+
     }
 
 }
