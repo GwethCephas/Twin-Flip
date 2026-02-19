@@ -12,6 +12,8 @@
 /captures
 .externalNativeBuild
 .cxx
-local.properties
 kotzilla.json
 kotzilla.key
+/app/build
+/app/release
+/gradle/gradle-daemon-jvm.properties

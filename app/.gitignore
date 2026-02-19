@@ -1,7 +1,2 @@
 /build
-/app/build/
-/app/release/
-kotzilla.json
-*.apk
-*.aab
-*.keystore
+
