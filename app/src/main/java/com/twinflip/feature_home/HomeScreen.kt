@@ -1,5 +1,6 @@
 package com.twinflip.feature_home
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -48,6 +49,10 @@ fun HomeScreen(
         musicManager.play(R.raw.sfx_kids_guitar, volume = 0.3f)
     }
 
+    BackHandler(enabled = isThemePickerVisible) {
+        isThemePickerVisible = false
+    }
+
     Box(
         modifier = modifier.fillMaxSize()
     ) {
@@ -84,7 +89,6 @@ fun HomeScreen(
         ThemePickerSheet(
             themeViewModel = themeViewModel,
             isVisible = isThemePickerVisible,
-            onDismissRequest = { isThemePickerVisible = false },
             onNavigateToMultiplayer = { themeName ->
                 soundManager.playSound(GameSound.BUTTON_TAP)
                 scope.launch {

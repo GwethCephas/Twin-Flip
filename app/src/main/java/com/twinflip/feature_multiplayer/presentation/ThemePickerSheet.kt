@@ -10,7 +10,6 @@ import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectVerticalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -28,27 +27,22 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.twinflip.feature_themes.presentation.ThemeViewModel
-import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 @Composable
 fun ThemePickerSheet(
     themeViewModel: ThemeViewModel,
     onNavigateToMultiplayer: (String) -> Unit,
-    onDismissRequest: () -> Unit,
     isVisible: Boolean
 ) {
 
     val state = themeViewModel.themeUiState.collectAsStateWithLifecycle()
-    val scope = rememberCoroutineScope()
 
     val offsetY = remember { Animatable(0f) }
 
@@ -68,28 +62,7 @@ fun ThemePickerSheet(
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .offset { IntOffset(0, offsetY.value.roundToInt()) }
-                .pointerInput(Unit) {
-                    detectVerticalDragGestures(
-                        onDragEnd = {
-                            if (offsetY.value > 200f) {
-                                onDismissRequest()
-                            } else {
-                                scope.launch {
-                                    offsetY.animateTo(0f)
-                                }
-                            }
-                        },
-                        onVerticalDrag = { change, dragAmount ->
-                            change.consume()
-                            scope.launch {
-                                offsetY.snapTo(offsetY.value + dragAmount)
-
-                            }
-
-                        }
-                    )
-                },
+                .offset { IntOffset(0, offsetY.value.roundToInt()) },
             contentAlignment = Alignment.Center
         ) {
             AnimatedVisibility(
