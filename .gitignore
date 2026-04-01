@@ -16,4 +16,5 @@ kotzilla.json
 kotzilla.key
 /app/build
 /app/release
+/app/debug
 /gradle/gradle-daemon-jvm.properties
