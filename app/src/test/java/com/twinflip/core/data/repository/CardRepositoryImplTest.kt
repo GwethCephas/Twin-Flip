@@ -34,7 +34,7 @@ class CardRepositoryImplTest {
             CardEntity(name = "card1", imagePath = "path1/card1.svg"),
             CardEntity(name = "card2", imagePath = "path2/card2.svg"),
         )
-        val theme = ThemeEntity("animals", mockCards)
+        val theme = ThemeEntity(themeName = "animals", images = mockCards)
 
         whenever(themeProvider.getThemes()).thenReturn(listOf(theme))
 
