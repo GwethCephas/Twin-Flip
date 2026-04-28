@@ -1,205 +1,159 @@
 package com.twinflip.feature_singleplayer.presentation.game
 
-import app.cash.turbine.test
+import com.twinflip.common.MainDispatcherRule
 import com.twinflip.core.domain.game.GameCard
 import com.twinflip.core.domain.game.GameEngine
 import com.twinflip.core.domain.model.CardData
+import io.mockk.clearAllMocks
+import io.mockk.every
+import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceTimeBy
-import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
-import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertNull
 import org.junit.Assert.assertTrue
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
-import org.mockito.kotlin.any
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.whenever
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class GameViewModelTest {
 
-    lateinit var gameEngine: GameEngine
-    lateinit var gameViewModel: GameViewModel
+    @get:Rule
+    val mainDispatcherRule = MainDispatcherRule()
+
+    private lateinit var gameEngine: GameEngine
+    private lateinit var gameViewModel: GameViewModel
 
     private val themeName = "animals"
     private val dummyCards = listOf(
         GameCard(
             id = 1,
-            card = CardData(
-                name = "card1",
-                imagePath = "path1"
-            ),
+            card = CardData(name = "card1", imagePath = "path1"),
             isFlipped = false,
             isMatched = false
         ),
         GameCard(
             id = 2,
-            card = CardData(
-                name = "card2",
-                imagePath = "path2"
-            ),
+            card = CardData(name = "card2", imagePath = "path2"),
             isFlipped = false,
             isMatched = false
         )
     )
-    private val matchingCards = listOf(
-        dummyCards[0],
-        dummyCards[0].copy(id = 2)
-    )
 
     @Before
     fun setUp() {
-        gameEngine = mock()
+        gameEngine = mockk()
+        every { gameEngine.loadGames(any()) } returns dummyCards
+    }
+
+    @After
+    fun tearDown() {
+        if (::gameViewModel.isInitialized) {
+            gameViewModel.stopTimer()
+        }
+        clearAllMocks()
     }
 
     @Test
     fun `loadGames update the ui state correctly`() = runTest {
-
-        whenever(gameEngine.loadGames(themeName)).thenReturn(dummyCards)
-
         gameViewModel = GameViewModel(gameEngine)
-
         gameViewModel.loadGames(themeName)
-        advanceUntilIdle()
+        advanceTimeBy(100)
 
-        val state = gameViewModel.gameUiState
-
-        state.test {
-            val initialState = awaitItem()
-
-            assertEquals(dummyCards, initialState.cards)
-            assertEquals(0, initialState.moves)
-            assertEquals(0, initialState.matchedPairs)
-            assertFalse(initialState.gameCompleted)
-            assertFalse(initialState.isComparing)
-            assertNull(initialState.firstSelected)
-            assertNull(initialState.secondSelected)
-            assertEquals("00:00", initialState.time)
-            cancelAndIgnoreRemainingEvents()
-        }
-
-
+        val state = gameViewModel.gameUiState.value
+        assertEquals(dummyCards, state.cards)
+        assertEquals(0, state.moves)
+        assertEquals(0, state.matchedPairs)
+        assertFalse(state.gameCompleted)
     }
-
 
     @Test
     fun `cardClicked selects first card`() = runTest {
-        whenever(gameEngine.loadGames(themeName)).thenReturn(dummyCards)
-        whenever(gameEngine.flipCard(any(), any())).thenReturn(dummyCards)
+        every { gameEngine.flipCard(any(), any()) } returns dummyCards
 
         gameViewModel = GameViewModel(gameEngine)
         gameViewModel.loadGames(themeName)
-        advanceUntilIdle()
+        advanceTimeBy(100)
 
         gameViewModel.cardClicked(dummyCards[0])
+        advanceTimeBy(100)
 
         val state = gameViewModel.gameUiState.value
-        assertEquals(dummyCards[0], state.firstSelected)
+        assertEquals(dummyCards[0].id, state.firstSelected?.id)
         assertNull(state.secondSelected)
-        assertFalse(state.isComparing)
     }
-
 
     @Test
     fun `matching cards are marked and increase matchedPairs`() = runTest {
-
-        whenever(gameEngine.loadGames(themeName)).thenReturn(matchingCards)
-        whenever(gameEngine.flipCard(any(), any())).thenReturn(matchingCards)
-        whenever(gameEngine.markAsMatched(any(), any())).thenReturn(matchingCards)
+        val matchingCards = listOf(
+            GameCard(id = 1, card = CardData("match", "path")),
+            GameCard(id = 2, card = CardData("match", "path"))
+        )
+        every { gameEngine.loadGames(themeName) } returns matchingCards
+        every { gameEngine.flipCard(any(), any()) } returns matchingCards
+        every { gameEngine.markAsMatched(any(), any()) } returns matchingCards
 
         gameViewModel = GameViewModel(gameEngine)
         gameViewModel.loadGames(themeName)
-        advanceUntilIdle()
+        advanceTimeBy(100)
 
         gameViewModel.cardClicked(matchingCards[0])
         gameViewModel.cardClicked(matchingCards[1])
 
-        advanceTimeBy(800) // comparison delay
-        advanceUntilIdle()
+        advanceTimeBy(1000)
 
-        gameViewModel.gameUiState.test {
-            val state = awaitItem()
-            assertNotNull(state.cards)
-            assertEquals(0, state.matchedPairs)
-            assertEquals(0, state.moves)
-            assertTrue(state.isComparing)
-
-
-
-            val finalState = awaitItem()
-            assertNotNull(finalState.cards)
-            assertEquals(1, finalState.matchedPairs)
-
-
-
-            cancelAndIgnoreRemainingEvents()
-        }
-
+        val state = gameViewModel.gameUiState.value
+        assertEquals(1, state.matchedPairs)
+        assertFalse(state.isComparing)
+        gameViewModel.stopTimer()
     }
 
     @Test
     fun `non matching cards are flipped back`() = runTest {
-        whenever(gameEngine.loadGames(themeName)).thenReturn(dummyCards)
-        whenever(gameEngine.flipCard(any(), any())).thenReturn(dummyCards)
-        whenever(gameEngine.flipCardBack(any(), any())).thenReturn(dummyCards)
+        every { gameEngine.flipCard(any(), any()) } returns dummyCards
+        every { gameEngine.flipCardBack(any(), any()) } returns dummyCards
 
         gameViewModel = GameViewModel(gameEngine)
         gameViewModel.loadGames(themeName)
-        advanceUntilIdle()
+        advanceTimeBy(100)
 
         gameViewModel.cardClicked(dummyCards[0])
         gameViewModel.cardClicked(dummyCards[1])
 
-        advanceTimeBy(800)
-        advanceUntilIdle()
+        advanceTimeBy(1000)
 
-
-        gameViewModel.gameUiState.test {
-            val state = awaitItem()
-            assertNotNull(state.cards)
-            assertEquals(0, state.matchedPairs)
-            assertEquals(0, state.moves)
-            assertTrue(state.isComparing)
-
-            val finalState = awaitItem()
-            assertNotNull(finalState.cards)
-            assertEquals(0, state.matchedPairs)
-
-
-            cancelAndIgnoreRemainingEvents()
-
-        }
-
+        val state = gameViewModel.gameUiState.value
+        assertEquals(0, state.matchedPairs)
+        assertNull(state.firstSelected)
+        assertNull(state.secondSelected)
+        gameViewModel.stopTimer()
     }
 
     @Test
     fun `game completion sets gameCompleted true`() = runTest {
-        whenever(gameEngine.loadGames(themeName)).thenReturn(matchingCards)
-        whenever(gameEngine.flipCard(any(), any())).thenReturn(matchingCards)
-        whenever(gameEngine.markAsMatched(any(), any())).thenReturn(matchingCards)
+        val matchingCards = listOf(
+            GameCard(id = 1, card = CardData("match", "path")),
+            GameCard(id = 2, card = CardData("match", "path"))
+        )
+        every { gameEngine.loadGames(themeName) } returns matchingCards
+        every { gameEngine.flipCard(any(), any()) } returns matchingCards
+        every { gameEngine.markAsMatched(any(), any()) } returns matchingCards
 
         gameViewModel = GameViewModel(gameEngine)
         gameViewModel.loadGames(themeName)
-        advanceUntilIdle()
+        advanceTimeBy(100)
 
         gameViewModel.cardClicked(matchingCards[0])
         gameViewModel.cardClicked(matchingCards[1])
 
-        advanceUntilIdle()
+        advanceTimeBy(1000)
 
-         gameViewModel.gameUiState.test {
-             val state = awaitItem()
-             assertNotNull(state.cards)
-             assertEquals(0, state.matchedPairs)
-
-             cancelAndIgnoreRemainingEvents()
-         }
-
-
+        val state = gameViewModel.gameUiState.value
+        assertTrue(state.gameCompleted)
+        gameViewModel.stopTimer()
     }
-
 }

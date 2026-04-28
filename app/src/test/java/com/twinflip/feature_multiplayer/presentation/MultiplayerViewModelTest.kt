@@ -1,9 +1,14 @@
 package com.twinflip.feature_multiplayer.presentation
 
 import app.cash.turbine.test
+import com.twinflip.common.MainDispatcherRule
 import com.twinflip.core.domain.game.GameCard
 import com.twinflip.core.domain.game.GameEngine
 import com.twinflip.core.domain.model.CardData
+import io.mockk.clearAllMocks
+import io.mockk.clearMocks
+import io.mockk.every
+import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -18,10 +23,6 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.mockito.kotlin.any
-import org.mockito.kotlin.clearInvocations
-import org.mockito.kotlin.mock
-import org.mockito.kotlin.whenever
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class MultiplayerViewModelTest {
@@ -51,25 +52,25 @@ class MultiplayerViewModelTest {
 
     @Before
     fun setUp() {
-        gameEngine = mock()
+        gameEngine = mockk()
 
-        whenever(gameEngine.loadGames(any())).thenReturn(dummyCards)
+        every { gameEngine.loadGames(any()) } returns dummyCards
 
-        whenever(gameEngine.flipCard(any(), any())).thenAnswer { invocation ->
-            val cards = invocation.arguments[0] as List<GameCard>
-            val id = invocation.arguments[1] as Int
+        every { gameEngine.flipCard(any(), any()) } answers {
+            val cards = it.invocation.args[0] as List<GameCard>
+            val id = it.invocation.args[1] as Int
             cards.map { if (it.id == id) it.copy(isFlipped = true) else it }
         }
 
-        whenever(gameEngine.flipCardBack(any(), any())).thenAnswer { invocation ->
-            val cards = invocation.arguments[0] as List<GameCard>
-            val id = invocation.arguments[1] as Int
+        every { gameEngine.flipCardBack(any(), any()) } answers {
+            val cards = it.invocation.args[0] as List<GameCard>
+            val id = it.invocation.args[1] as Int
             cards.map { if (it.id == id) it.copy(isFlipped = false) else it }
         }
 
-        whenever(gameEngine.markAsMatched(any(), any())).thenAnswer { invocation ->
-            val cards = invocation.arguments[0] as List<GameCard>
-            val id = invocation.arguments[1] as Int
+        every { gameEngine.markAsMatched(any(), any()) } answers {
+            val cards = it.invocation.args[0] as List<GameCard>
+            val id = it.invocation.args[1] as Int
             cards.map {
                 if (it.id == id || it.card.name == "lion") it.copy(isMatched = true) else it
             }
@@ -155,7 +156,7 @@ class MultiplayerViewModelTest {
             GameCard(2, CardData("tiger", "tiger"))
         )
 
-        whenever(gameEngine.loadGames(any())).thenReturn(nonMatchingCards)
+        every { gameEngine.loadGames(any()) } returns nonMatchingCards
 
         multiplayerViewModel.loadGame("animals")
         advanceUntilIdle()
@@ -184,6 +185,7 @@ class MultiplayerViewModelTest {
 
     @After
     fun tearDown() {
-        clearInvocations(gameEngine)
+        clearMocks(gameEngine)
+        clearAllMocks()
     }
 }
