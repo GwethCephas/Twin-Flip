@@ -1,4 +1,4 @@
-package com.twinflip.feature_multiplayer.presentation
+package com.twinflip.common
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
