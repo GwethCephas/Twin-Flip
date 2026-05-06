@@ -46,10 +46,10 @@ jobs:
           cache: gradle
 
       - name: Version Bump
-        uses: ./gradlew bundleRelease -PversionCode=${{ github.run_number }} -PversionName="1.0.${{ github.run_number }}"
+        uses: chkfung/android-version-actions@v1.2.2
         with:
           gradlePath: app/build.gradle.kts
-          versionCode: ${{ github.run_number }}
+          versionCode: ${{github.run_number}}
 
       - name: Assemble Release bundle
         run: ./gradlew bundleRelease
