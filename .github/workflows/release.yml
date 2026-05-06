@@ -46,7 +46,7 @@ jobs:
           cache: gradle
 
       - name: Version Bump
-        uses: chkvng/android-version-actions@v1.2.3
+        uses: ./gradlew bundleRelease -PversionCode=${{ github.run_number }} -PversionName="1.0.${{ github.run_number }}"
         with:
           gradlePath: app/build.gradle.kts
           versionCode: ${{ github.run_number }}
@@ -59,8 +59,8 @@ jobs:
         with:
           releaseDirectory: app/build/outputs/bundle/release
           signingKeyBase64: ${{ secrets.ANDROID_KEYSTORE }}
-          signingKeyPassword: ${{ secrets.KEYSTORE_PASSWORD }}
-          signingKeyAlias: ${{ secrets.KEYSTORE_ALIAS }}
+          alias: ${{ secrets.KEYSTORE_ALIAS }}
+          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
           keyPassword: ${{ secrets.KEYSTORE_PASSWORD }}
 
       - name: Set up authorization with Google Playstore
