@@ -12,8 +12,6 @@
 /captures
 .externalNativeBuild
 .cxx
-kotzilla.json
-kotzilla.key
 /app/build
 /app/release
 /app/debug
