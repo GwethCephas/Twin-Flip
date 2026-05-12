@@ -55,18 +55,21 @@ jobs:
           gradlePath: app/build.gradle.kts
           versionCode: ${{github.run_number}}
 
-      - name: Assemble Release bundle
-        run: ./gradlew bundleRelease -PversionCode=${{ github.run_number }} -PversionName="1.0.${{ github.run_number }}"
-
-      - name: Sign Release
-        id: sign_app
-        uses: r0adkll/sign-android-release@v1
-        with:
-          releaseDirectory: app/build/outputs/bundle/release
-          signingKeyBase64: ${{ secrets.ANDROID_KEYSTORE }}
-          alias: ${{ secrets.KEYSTORE_ALIAS }}
-          keyStorePassword: ${{ secrets.KEYSTORE_PASSWORD }}
-          keyPassword: ${{ secrets.KEYSTORE_PASSWORD }}
+      - name: Assemble and Sign Release bundle
+        env:
+          KEYSTORE_FILE: ${{ secrets.ANDROID_KEYSTORE }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        run: |
+          echo "$KEYSTORE_FILE" | base64 -d > keystore.jks
+          ./gradlew bundleRelease \
+            -PversionCode=${{ github.run_number }} \
+            -PversionName="1.0.${{ github.run_number }}" \
+            -Pandroid.injected.signing.store.file=$(pwd)/keystore.jks \
+            -Pandroid.injected.signing.store.password=$KEYSTORE_PASSWORD \
+            -Pandroid.injected.signing.key.alias=$KEY_ALIAS \
+            -Pandroid.injected.signing.key.password=$KEY_PASSWORD
 
       - name: Set up authorization with Google Playstore
         run: echo '${{ secrets.PLAY_AUTH_JSON }}' > service_account.json
@@ -76,7 +79,7 @@ jobs:
         with:
           serviceAccountJson: service_account.json
           packageName: com.twinflip
-          releaseFiles: ${{ steps.sign_app.outputs.signedReleaseFile }}
+          releaseFiles: app/build/outputs/bundle/release/app-release.aab
           track: internal
           status: 'completed'
           whatsNewDirectory: whatsNew/
