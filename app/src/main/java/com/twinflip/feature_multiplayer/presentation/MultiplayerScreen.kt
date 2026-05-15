@@ -1,6 +1,7 @@
 package com.twinflip.feature_multiplayer.presentation
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -32,6 +33,8 @@ import com.twinflip.R
 import com.twinflip.core.audio.GameSound
 import com.twinflip.core.audio.MusicManager
 import com.twinflip.core.audio.SoundManager
+import com.twinflip.feature_ads.banner.BannerAdView
+import com.twinflip.feature_ads.interstitial.InterstitialProvider
 import kotlinx.coroutines.delay
 
 @SuppressLint("ConfigurationScreenWidthHeight")
@@ -46,12 +49,16 @@ fun MultiplayerScreen(
     musicManager: MusicManager
 ) {
 
+    val context = LocalContext.current
+    val activity = context as? Activity
+
+    LaunchedEffect(Unit) {
+        InterstitialProvider.loadAd(context)
+    }
+
     LaunchedEffect(Unit) {
         musicManager.play(R.raw.sfx_kids_guitar, volume = 0.3f)
     }
-
-    val context = LocalContext.current
-
 
     val state by multiplayerViewModel.multiplayerUiState.collectAsStateWithLifecycle()
     val cardSize = (LocalConfiguration.current.screenWidthDp - 20) / 4
@@ -92,29 +99,33 @@ fun MultiplayerScreen(
                 }
 
                 GamePhase.Finished -> {
-                    isVisible = !isVisible
-
                     LaunchedEffect(Unit) {
-                        soundManager.playSound(GameSound.LEVEL_COMPLETE)
+                        if (activity != null) {
+                            InterstitialProvider.showAd(activity) {
+                                isVisible = true
+                                soundManager.playSound(GameSound.LEVEL_COMPLETE)
+                            }
+                        } else {
+                            isVisible = true
+                        }
+                        musicManager.stopMusic()
                     }
-                    musicManager.stopMusic()
 
-                    MpCompleteScreen(
-                        state = state,
-                        isVisible = isVisible,
-                        onDismissRequest = {
-                            musicManager.play(R.raw.sfx_kids_guitar, volume = 0.3f)
-                            isVisible = false
-                            multiplayerViewModel.loadGame(themeName)
-                            multiplayerViewModel.startGame()
-
-                        },
-                        onNavigateToHomeScreen = {
-                            onNavigateToHomeScreen()
-                        },
-                        soundManager = soundManager
-                    )
-
+                    if (isVisible) {
+                        MpCompleteScreen(
+                            state = state,
+                            isVisible = isVisible,
+                            onDismissRequest = {
+                                musicManager.play(R.raw.sfx_kids_guitar, volume = 0.3f)
+                                isVisible = false
+                                multiplayerViewModel.loadGame(themeName)
+                                multiplayerViewModel.startGame()
+                                InterstitialProvider.loadAd(context)
+                            },
+                            onNavigateToHomeScreen = onNavigateToHomeScreen,
+                            soundManager = soundManager
+                        )
+                    }
                 }
 
                 GamePhase.Idle -> {
@@ -157,5 +168,8 @@ fun MultiplayerScreen(
 
 
         }
+        BannerAdView(
+            modifier = modifier.align(Alignment.BottomCenter)
+        )
     }
 }

@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBars
 import androidx.compose.foundation.layout.windowInsetsPadding
@@ -35,6 +36,7 @@ import com.twinflip.core.audio.GameSound
 import com.twinflip.core.audio.MusicManager
 import com.twinflip.core.audio.SoundManager
 import com.twinflip.core.ui.common.CustomTopBar
+import com.twinflip.feature_ads.banner.BannerAdView
 
 @SuppressLint("ConfigurationScreenWidthHeight")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -56,76 +58,88 @@ fun ThemeScreen(
     }
 
 
-    Column(
+    Box(
         modifier = modifier
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.tertiary)
     ) {
-        CustomTopBar(
-            modifier = modifier
-                .fillMaxWidth()
-                .windowInsetsPadding(WindowInsets.statusBars),
-            title = "Themes",
-            onNavigateBack = {
-                onNavigateToHome()
-            }
-        )
-        Spacer(modifier = modifier.height(outerPadding))
-
-        if (state.isLoading) {
-            Box(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                CircularProgressIndicator()
-            }
-        } else {
-
-            Surface(
-                modifier = Modifier
+        Column(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            CustomTopBar(
+                modifier = modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-                    .wrapContentHeight(),
-                shape = RoundedCornerShape(24.dp),
-            ) {
-                Column(
-                    modifier = Modifier.background(MaterialTheme.colorScheme.background),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        modifier = Modifier.padding(top = 10.dp),
-                        text = "Choose a Theme",
-                        style = MaterialTheme.typography.titleLarge
-                    )
+                    .windowInsetsPadding(WindowInsets.statusBars),
+                title = "Themes",
+                onNavigateBack = {
+                    onNavigateToHome()
+                }
+            )
+            Spacer(modifier = modifier.height(outerPadding))
 
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(3),
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 10.dp),
-                        contentPadding = PaddingValues(
-                            horizontal = 10.dp,
-                            vertical = 5.dp
-                        ),
-                        horizontalArrangement = Arrangement.spacedBy(16.dp),
-                        verticalArrangement = Arrangement.spacedBy(16.dp)
+            if (state.isLoading) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator()
+                }
+            } else {
+
+                Surface(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                        .wrapContentHeight(),
+                    shape = RoundedCornerShape(24.dp),
+                ) {
+                    Column(
+                        modifier = Modifier.background(MaterialTheme.colorScheme.background),
+                        horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        items(state.themes.size) { index ->
-                            val theme = state.themes[index]
-                            ThemeItem(
-                                theme = theme,
-                                onThemeClick = {
-                                    soundManager.playSound(GameSound.BUTTON_TAP)
-                                    onNavigateToGame(theme.themeName + "/${theme.backgroundImage}")
-                                }
-                            )
+                        Text(
+                            modifier = Modifier.padding(top = 10.dp),
+                            text = "Choose a Theme",
+                            style = MaterialTheme.typography.titleLarge
+                        )
+
+                        LazyVerticalGrid(
+                            columns = GridCells.Fixed(3),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 10.dp),
+                            contentPadding = PaddingValues(
+                                horizontal = 10.dp,
+                                vertical = 5.dp
+                            ),
+                            horizontalArrangement = Arrangement.spacedBy(16.dp),
+                            verticalArrangement = Arrangement.spacedBy(16.dp)
+                        ) {
+                            items(state.themes.size) { index ->
+                                val theme = state.themes[index]
+                                ThemeItem(
+                                    theme = theme,
+                                    onThemeClick = {
+                                        soundManager.playSound(GameSound.BUTTON_TAP)
+                                        onNavigateToGame(theme.themeName + "/${theme.backgroundImage}")
+                                    }
+                                )
+                            }
                         }
                     }
                 }
             }
-        }
 
+
+        }
+        Box(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .windowInsetsPadding(WindowInsets.navigationBars)
+        ) {
+            BannerAdView()
+        }
     }
 
 }

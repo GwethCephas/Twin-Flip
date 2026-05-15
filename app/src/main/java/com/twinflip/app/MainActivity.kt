@@ -5,13 +5,18 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.google.android.gms.ads.MobileAds
 import com.twinflip.app.navigation.NavGraph
 import com.twinflip.core.audio.MusicManager
 import com.twinflip.core.audio.SoundManager
 import com.twinflip.core.ui.theme.TwinFlipTheme
+import com.twinflip.feature_ads.interstitial.InterstitialProvider
 import com.twinflip.feature_multiplayer.presentation.MultiplayerViewModel
 import com.twinflip.feature_singleplayer.presentation.game.GameViewModel
 import com.twinflip.feature_themes.presentation.ThemeViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 
 class MainActivity : ComponentActivity() {
@@ -27,6 +32,11 @@ class MainActivity : ComponentActivity() {
                 darkScrim = 0
             )
         )
+
+        CoroutineScope(Dispatchers.IO).launch {
+            MobileAds.initialize(this@MainActivity) {}
+        }
+        InterstitialProvider.loadAd(this@MainActivity)
 
         musicManager = MusicManager(applicationContext)
         soundManager = SoundManager(applicationContext)

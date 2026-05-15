@@ -7,8 +7,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -27,6 +30,7 @@ import com.twinflip.core.audio.GameSound
 import com.twinflip.core.audio.MusicManager
 import com.twinflip.core.audio.SoundManager
 import com.twinflip.core.ui.common.CustomButton
+import com.twinflip.feature_ads.banner.BannerAdView
 import com.twinflip.feature_multiplayer.presentation.ThemePickerSheet
 import com.twinflip.feature_themes.presentation.ThemeViewModel
 import kotlinx.coroutines.launch
@@ -85,6 +89,13 @@ fun HomeScreen(
                 },
                 soundManager = soundManager
             )
+        }
+        Box(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .windowInsetsPadding(WindowInsets.navigationBars)
+        ) {
+            BannerAdView()
         }
         ThemePickerSheet(
             themeViewModel = themeViewModel,

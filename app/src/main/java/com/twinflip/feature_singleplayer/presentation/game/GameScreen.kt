@@ -1,6 +1,7 @@
 package com.twinflip.feature_singleplayer.presentation.game
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
@@ -32,12 +34,16 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight.Companion.SemiBold
 import androidx.compose.ui.unit.dp
@@ -47,6 +53,8 @@ import com.twinflip.core.audio.GameSound
 import com.twinflip.core.audio.MusicManager
 import com.twinflip.core.audio.SoundManager
 import com.twinflip.core.ui.common.calculateScore
+import com.twinflip.feature_ads.banner.BannerAdView
+import com.twinflip.feature_ads.interstitial.InterstitialProvider
 import com.twinflip.feature_themes.presentation.ThemeViewModel
 
 
@@ -63,6 +71,12 @@ fun GameScreen(
     soundManager: SoundManager,
     musicManager: MusicManager
 ) {
+    val context = LocalContext.current
+    val activity = context as? Activity
+
+    LaunchedEffect(Unit) {
+        InterstitialProvider.loadAd(context)
+    }
     LaunchedEffect(themeName) {
         viewModel.loadGames(themeName)
     }
@@ -79,14 +93,30 @@ fun GameScreen(
     val state by viewModel.gameUiState.collectAsState()
     val cardSize = (LocalConfiguration.current.screenWidthDp - 20) / 4
 
+    var hasAdBeenDismissed by remember { mutableStateOf(false) }
+
 
     LaunchedEffect(state.gameCompleted) {
         if (state.gameCompleted) {
             themeViewModel.unlockNextTheme(themeName)
             viewModel.stopTimer()
+
+            if (activity != null) {
+                InterstitialProvider.showAd(activity) {
+                    hasAdBeenDismissed = true
+                    soundManager.playSound(GameSound.LEVEL_COMPLETE)
+                    println("Interstitial ad dismissed")
+                }
+            } else {
+                hasAdBeenDismissed = true
+                soundManager.playSound(GameSound.LEVEL_COMPLETE)
+            }
         }
     }
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+    ) {
         Image(
             modifier = Modifier.fillMaxSize(),
             painter = painterResource(id = backgroundImage),
@@ -103,7 +133,7 @@ fun GameScreen(
         ) {
 
 
-            if (state.gameCompleted) {
+            if (state.gameCompleted && hasAdBeenDismissed) {
 
                 val currentElapsedTime = state.time
 
@@ -113,17 +143,13 @@ fun GameScreen(
                 )
                 musicManager.stopMusic()
 
-                LaunchedEffect(Unit) {
-                    soundManager.playSound(GameSound.LEVEL_COMPLETE)
-                }
-
-
                 SpCompleteScreen(
                     time = currentElapsedTime,
                     moves = state.moves,
                     score = currentScore,
                     onNavigateToThemeScreen = onNavigateBack,
                     onPlayAgainClick = {
+                        hasAdBeenDismissed = false
                         musicManager.play(R.raw.sfx_kids_guitar, volume = 0.3f)
                         viewModel.loadGames(themeName)
                     },
@@ -224,6 +250,13 @@ fun GameScreen(
                 }
 
             }
+        }
+        Box(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .windowInsetsPadding(WindowInsets.navigationBars)
+        ) {
+            BannerAdView()
         }
     }
 }
