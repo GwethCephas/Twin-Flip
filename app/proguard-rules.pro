@@ -21,3 +21,29 @@
 #-renamesourcefileattribute SourceFile
 
 -keep class com.twinflip.** { *; }
+
+# Prevent ProGuard from scrambling or stripping out the core AdMob SDK classes
+-keep class com.google.android.gms.ads.** { *; }
+-keep public class com.google.android.gms.ads.internal.client.MeasurementManager { *; }
+
+
+# These rules prevent crashes on launch caused by the background libraries
+# packaged inside the AdMob SDK.
+
+# Suppress compilation warnings regarding missing Room/WorkManager classes
+-dontwarn androidx.room.**
+-dontwarn androidx.work.**
+
+# Keep Jetpack Startup initialization paths intact
+-keep class androidx.startup.** { *; }
+
+# Protect Jetpack WorkManager background components
+-keep class androidx.work.** { *; }
+
+# Using a broader wildcard string format to bypass the editor's missing-class check
+-keep class **.SystemAlarmService { *; }
+-keep class **.SystemJobService { *; }
+-keep class **.MultiInstanceInvalidationService { *; }
+
+# Soft class match pattern for the Room Database extension
+-keep class * implements **.RoomDatabase
