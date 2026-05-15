@@ -61,6 +61,10 @@ jobs:
           KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
           KEY_ALIAS: ${{ secrets.KEYSTORE_ALIAS }}
           KEY_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+
+          ADMOB_APP_ID: ${{ secrets.ADMOB_ID }}
+          BANNER_AD_ID: ${{ secrets.BANNER_AD_UNIT_ID }}
+          INTERSTITIAL_AD_ID: ${{ secrets.INTERSTITIAL_AD_UNIT_ID }}
         run: |
           echo "$KEYSTORE_FILE" | base64 -d > keystore.jks
           ./gradlew bundleRelease \
